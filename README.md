@@ -8,6 +8,8 @@ Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10,
 
 [www.open-source.tech/JPEGView-Image-Viewer-and-Editor/](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/)
 
+![www.open-source.tech/JPEGView-Image-Viewer-and-Editor/ screenshot](open-source-tech.jpg?raw=true)
+
 You can download Windows binaries there.
 
 ## What's new (briefly)
