@@ -1,6 +1,6 @@
 # JPEGView-Image-Viewer-and-Editor
 
-> Updated Dec 13 2021. Version 1.1.1.0 has been released. Download [link1](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/JPEGView_v1.1.1.0.zip), [link2](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView_v1.1.1.0.zip) added.
+> Updated Dec 15 2021. Version 1.1.1.0 has been released. Download [link1](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/JPEGView_v1.1.1.0.zip), [link2](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView_v1.1.1.0.zip) added.
 
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
