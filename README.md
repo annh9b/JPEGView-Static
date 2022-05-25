@@ -4,6 +4,16 @@
 
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
+This fork incorporates changes not only from original [JPEGView from SourceForge.net](https://sourceforge.net/projects/jpegview/),
+but also from [JPEGView at GitHub user sylikc](https://github.com/sylikc/jpegview).
+
+## Features
+
+* Small and fast, uses SSE2 and up to 4 CPU cores.
+* High quality resampling filter, preserving sharpness of images.
+* Basic image processing tools can be applied realtime during viewing.
+* Movie mode to play folder of JPEGs as movie.
+
 ## Official Site
 
 [www.open-source.tech/JPEGView-Image-Viewer-and-Editor/](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/)
