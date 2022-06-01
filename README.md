@@ -1,11 +1,13 @@
 # JPEGView-Image-Viewer-and-Editor
 
-> Updated May 25 2022. See screenshots for brand new version 1.1.1.0 on the [official site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
+> Updated Jun 01 2022. See screenshots for brand new version 1.1.1.0 on the [official site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
 
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
 This fork incorporates changes not only from original [JPEGView from SourceForge.net](https://sourceforge.net/projects/jpegview/),
 but also from [JPEGView at GitHub user sylikc](https://github.com/sylikc/jpegview).
+
+Binaries can be downloaded from [Official Site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
 
 ## Features
 
