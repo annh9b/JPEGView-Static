@@ -18,11 +18,11 @@ Binaries can be downloaded from [Official Site](https://www.open-source.tech/JPE
 
 ## Official Site
 
+Brand new Windows installer can be downloaded there.
+
 [www.open-source.tech/JPEGView-Image-Viewer-and-Editor/](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/)
 
 ![www.open-source.tech/JPEGView-Image-Viewer-and-Editor/ screenshot](open-source-tech.jpg?raw=true)
-
-Brand new Windows installer can be downloaded there.
 
 ## What's new (briefly)
 
