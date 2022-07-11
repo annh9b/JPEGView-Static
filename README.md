@@ -1,6 +1,6 @@
 # JPEGView-Image-Viewer-and-Editor
 
-> Updated Jul 11 2022. JPEGView Second Life version 1.2.0.0 has been released. Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php){:target="_blank"}.
+> Updated Jul 11 2022. JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)). Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php).
 
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
