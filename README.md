@@ -1,4 +1,4 @@
-# JPEGView-Image-Viewer-and-Editor
+# JPEGView Second Life - Image Viewer and Editor
 
 > Updated Jul 11 2022. JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)). Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php).
 
