@@ -1,6 +1,6 @@
 # JPEGView-Image-Viewer-and-Editor
 
-> Updated Jul 08 2022. See screenshots for brand new version 1.1.1.0 on the [official site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
+> Updated Jul 11 2022. JPEGView Second Life version 1.2.0.0 has been released. Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php){:target="_blank"}.
 
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
@@ -22,10 +22,11 @@ Binaries can be downloaded from [Official Site](https://www.open-source.tech/JPE
 
 ![www.open-source.tech/JPEGView-Image-Viewer-and-Editor/ screenshot](open-source-tech.jpg?raw=true)
 
-You can download Windows binaries there or [here](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/JPEGView_v1.1.1.0.zip) or [here](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView_v1.1.1.0.zip).
+Brand new Windows installer can be downloaded there.
 
 ## What's new (briefly)
 
+* Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php)
 * Removed obsolete Visual Studio solutions 2013, 2017, etc. VS2019 is the only supported now.
 * Included WTL library into repository. No external dependencies remained. Just git-clone and build.
 * Updated to much faster Turbo JPEG library version 2.1.0 (4/23/2021).

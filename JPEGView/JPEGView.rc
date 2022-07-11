@@ -108,15 +108,15 @@ BEGIN
     DEFPUSHBUTTON   "",IDC_FE_OK,154,344,96,15
 END
 
-IDD_ABOUT DIALOGEX 8, 7, 243, 152
+IDD_ABOUT DIALOGEX 8, 7, 253, 172
 STYLE DS_SETFONT | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "",IDC_CLOSE,133,130,104,15
+    DEFPUSHBUTTON   "",IDC_CLOSE,133,150,104,15
     LTEXT           "",IDC_JPEGVIEW,64,7,163,9,NOT WS_GROUP
-    LTEXT           "Copyright 2021-2022 Ann Hatt",IDC_COPYRIGHT,64,22,163,9,NOT WS_GROUP
+    LTEXT           "Copyright 2021-2022 Open Source Developer Ann Hatt",IDC_COPYRIGHT,64,22,173,9,NOT WS_GROUP
     ICON            IDR_MAINFRAME,IDC_ICONJPEGVIEW,12,6,64,64
-    CONTROL         "",IDC_LICENSE,"RichEdit20W",WS_TABSTOP | 0x804,64,68,168,54
+    CONTROL         "",IDC_LICENSE,"RichEdit20W",WS_TABSTOP | 0x804,64,68,168,74
     LTEXT           "",IDC_SIMDMODE,64,36,163,10,NOT WS_GROUP
     LTEXT           "",IDC_NUMCORES,64,49,163,10,NOT WS_GROUP
 END
@@ -444,7 +444,7 @@ BEGIN
             MENUITEM "_empty_",                     IDM_ABOUT
         END
         MENUITEM SEPARATOR
-        MENUITEM "About JPEGView...",           IDM_ABOUT
+        MENUITEM "About JPEGView/Help...",           IDM_ABOUT
         MENUITEM SEPARATOR
         MENUITEM "Exit\t0xffff",                IDM_EXIT
     END
@@ -488,8 +488,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,1,0
- PRODUCTVERSION 1,1,1,0
+ FILEVERSION 1,2,0,0
+ PRODUCTVERSION 1,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -504,14 +504,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Ann Hatt"
+            VALUE "CompanyName", "Open Source Developer Ann Hatt"
             VALUE "FileDescription", "Second life of tiny image viewver/editor - JPEGView"
-            VALUE "FileVersion", "1.1.1.0"
+            VALUE "FileVersion", "1.2.0.0"
             VALUE "InternalName", "JPEGView"
-            VALUE "LegalCopyright", "Copyright 2021-2022 Ann Hatt"
+            VALUE "LegalCopyright", "Copyright 2021-2022 Open Source Developer Ann Hatt"
             VALUE "OriginalFilename", "JPEGView.exe"
             VALUE "ProductName", "JPEGView Second Life"
-            VALUE "ProductVersion", "1.1.1.0"
+            VALUE "ProductVersion", "1.2.0.0"
         END
     END
     BLOCK "VarFileInfo"

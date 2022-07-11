@@ -2997,7 +2997,7 @@ void CMainDlg::EditINIFile(bool bGlobalINI) {
 void CMainDlg::UpdateWindowTitle() {
 	LPCTSTR sCurrentFileName = CurrentFileName(true);
 	if (sCurrentFileName == NULL || m_pCurrentImage == NULL) {
-		this->SetWindowText(_T("JPEGView"));
+		this->SetWindowText(_T("JPEGView Second Life"));
 	} else {
 		CString sWindowText =  sCurrentFileName;
 		sWindowText += Helpers::GetMultiframeIndex(m_pCurrentImage);
@@ -3007,7 +3007,7 @@ void CMainDlg::UpdateWindowTitle() {
 				sWindowText += " - " + Helpers::SystemTimeToString(pEXIF->GetAcquisitionTime());
 			}
 		}
-		sWindowText += _T(" - JPEGView");
+		sWindowText += _T(" - JPEGView Second Life");
 		this->SetWindowText(sWindowText);
 	}
 }

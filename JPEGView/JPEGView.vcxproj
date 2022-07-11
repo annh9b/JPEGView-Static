@@ -205,8 +205,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <CreateHotpatchableImage>false</CreateHotpatchableImage>
@@ -234,6 +233,9 @@
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Config\*" "$(OutDir)" /Y /C /D</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>"C:\Program Files\ImageMagick\magick.exe" "$(ProjectDir)\res\favicon_source.png" -define icon:auto-resize=256,150,128,96,72,64,50,48,40,32,30,24,20,16 -channel rgba "$(ProjectDir)\res\JPEGView.ico"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -256,8 +258,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <FloatingPointExceptions>false</FloatingPointExceptions>
       <CreateHotpatchableImage>false</CreateHotpatchableImage>
@@ -284,6 +285,9 @@
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)Config\*" "$(OutDir)" /Y /C /D</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>"C:\Program Files\ImageMagick\magick.exe" "$(ProjectDir)\res\favicon_source.png" -define icon:auto-resize=256,150,128,96,72,64,50,48,40,32,30,24,20,16 -channel rgba "$(ProjectDir)\res\JPEGView.ico"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ApplyFilterAVX.cpp">

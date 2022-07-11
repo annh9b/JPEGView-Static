@@ -56,9 +56,9 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 #endif
 #else
 #ifdef _WIN64
-	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView (64 bit version)..."));
+	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView/Help..."));
 #else
-	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView..."));
+	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView/Help..."));
 #endif
 #endif
 	this->SetWindowText(sTitle);
@@ -70,7 +70,7 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 	m_btnClose.Attach(GetDlgItem(IDC_CLOSE));
 	m_lblIcon.Attach(GetDlgItem(IDC_ICONJPEGVIEW));
 
-	m_lblVersion.SetWindowText(CString(_T("JPEGView ")) + JPEGVIEW_VERSION);
+	m_lblVersion.SetWindowText(CString(_T("JPEGView Second Life version ")) + JPEGVIEW_VERSION);
 
 	m_lblSIMD.SetWindowText(CString(CNLS::GetString(_T("SIMD mode used:"))) + _T(" ") + GetSIMDModeString());
 	TCHAR sNumCores[16];
@@ -80,8 +80,8 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 
 	m_richEdit.SetBackgroundColor(::GetSysColor(COLOR_3DFACE));
 	m_richEdit.SetAutoURLDetect(TRUE);
-	m_richEdit.SetWindowText(CString(CNLS::GetString(_T("Licensed under the GNU general public license version 3 (GPL v3), see readme file for details:"))) + 
-		_T("\nfile://") + GetReadmeFileName() + _T("\n") + 
+	m_richEdit.SetWindowText(CString(CNLS::GetString(_T("Licensed under the GNU general public license\nversion 3 (GPLv3).\n\nHelp file for details (html format):"))) + 
+		_T("\nfile://") + GetReadmeFileName() + _T("\n\n") + 
 		CNLS::GetString(_T("Project home page:")) + 
 		_T(" \nhttps://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/\n"));
 	m_richEdit.SetEventMask(ENM_LINK);
