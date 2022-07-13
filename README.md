@@ -38,6 +38,6 @@ Brand new Windows installer can be downloaded there.
 
 ## Help
 
-* [English](readme.html?raw=true)
-* [Ukrainian](readme-ua.html?raw=true)
-* [Russian](readme-ru.html?raw=true)
+* [English](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/readme.html)
+* [Ukrainian](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/readme-ua.html)
+* [Russian](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/readme-ru.html)
