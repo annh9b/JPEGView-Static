@@ -1,6 +1,6 @@
 # JPEGView Second Life - Image Viewer and Editor
 
-> Updated Jul 11 2022. JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)). Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php).
+> Updated Jul 13 2022. JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)). Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php).
 
 ## JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe), [download2](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)) as Windows installer
 
@@ -33,3 +33,9 @@ Brand new Windows installer can be downloaded there.
 * Included WTL library into repository. No external dependencies remained. Just git-clone and build.
 * Updated to much faster Turbo JPEG library version 2.1.0 (4/23/2021).
 * Updated to Google's WebP library version 1.2.0 HEAD at commit 05b72d4 (4/28/2021).
+
+## Help
+
+* [English](readme.html)
+* [Ukrainian](readme-ua.html)
+* [Russian](readme-ru.html)
