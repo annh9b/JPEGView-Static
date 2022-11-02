@@ -1,17 +1,15 @@
 # JPEGView Second Life - Image Viewer and Editor
 
-![JPEGView Second Life icon](favicon_large.png?raw=true)
-
-> Updated Nov 02 2022. JPEGView Second Life version 1.2.0.0 has been released. Portable zip-archive has been added. Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php). Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life) started, details below.
-
-## JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe), [download2](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)) as Windows installer
-
 Second life for famous [JPEGView from SourceForge.net - last updated 2018-03-10, currently abandoned](https://sourceforge.net/projects/jpegview/) - fast and tiny viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimalist GUI and base image processing.
 
 This fork incorporates changes not only from original [JPEGView from SourceForge.net](https://sourceforge.net/projects/jpegview/),
 but also from [JPEGView at GitHub user sylikc](https://github.com/sylikc/jpegview).
 
-Binaries can be downloaded from [Official Site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
+![JPEGView Second Life icon](favicon_large.png?raw=true)
+
+> Updated Nov 02 2022. JPEGView Second Life version 1.2.0.0 has been released. Portable zip-archive has been added. Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php). Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life) started, details below.
+
+All the binaries (Windows installer, portable zip-archive) can be downloaded from [Official Site](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/).
 
 ## Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life)
 
