@@ -2,7 +2,7 @@
 
 ![JPEGView Second Life icon](favicon_large.png?raw=true)
 
-> Updated Sep 17 2022. JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)). Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php). Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life) started, details below.
+> Updated Nov 02 2022. JPEGView Second Life version 1.2.0.0 has been released. Portable zip-archive has been added. Windows installer made with [Inno Setup](https://jrsoftware.org/isinfo.php). Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life) started, details below.
 
 ## JPEGView Second Life version 1.2.0.0 has been released ([download](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe), [download2](https://www.open-source.tech/JPEGView-Image-Viewer-and-Editor/downloads/Setup-JPEGViewSecondLife-v1.2.0.0-x64.exe)) as Windows installer
 
