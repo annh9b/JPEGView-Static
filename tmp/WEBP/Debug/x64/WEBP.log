@@ -1,0 +1,6 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  WEBP.cpp
+    正在创建库 C:\Users\wei_x\Source\Repos\JPEGView-Image-Viewer-and-Editor\\bin\Debug\x64\webp.lib 和对象 C:\Users\wei_x\Source\Repos\JPEGView-Image-Viewer-and-Editor\\bin\Debug\x64\webp.exp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  WEBP.vcxproj -> C:\Users\wei_x\Source\Repos\JPEGView-Image-Viewer-and-Editor\bin\Debug\x64\webp.dll

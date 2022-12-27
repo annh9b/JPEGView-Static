@@ -1,0 +1,45 @@
+﻿  AboutDlg.cpp
+  BatchCopyDlg.cpp
+  CropCtl.cpp
+  CropSizeDlg.cpp
+  DesktopWallpaper.cpp
+  EXIFDisplayCtl.cpp
+C:\Users\wei_x\source\repos\JPEGView-Image-Viewer-and-Editor\JPEGView\EXIFDisplayCtl.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  FileExtensionsDlg.cpp
+  FileExtensionsRegistry.cpp
+  FileList.cpp
+  FileOpenDialog.cpp
+  GUIControls.cpp
+  HelpDisplayCtl.cpp
+  Helpers.cpp
+  HelpersGUI.cpp
+  ImageLoadThread.cpp
+  ImageProcPanelCtl.cpp
+  InfoButtonPanel.cpp
+  JPEGImage.cpp
+  JPEGView.cpp
+  MainDlg.cpp
+  正在生成代码...
+  正在编译...
+  ManageOpenWithDlg.cpp
+  MultiMonitorSupport.cpp
+  NLS.cpp
+  NavigationPanel.cpp
+  NavigationPanelCtl.cpp
+  PaintMemDCMgr.cpp
+  Panel.cpp
+  ParameterDB.cpp
+C:\Users\wei_x\source\repos\JPEGView-Image-Viewer-and-Editor\JPEGView\ParameterDB.cpp(304,15): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  PrintDlg.cpp
+  ProcessingThreadPool.cpp
+  SaveImage.cpp
+  SettingsProvider.cpp
+  TransformPanelCtl.cpp
+  UnsharpMaskPanelCtl.cpp
+  UserCommand.cpp
+  WndButtonPanel.cpp
+  ZoomNavigatorCtl.cpp
+  正在生成代码...
+  JPEGView.vcxproj -> C:\Users\wei_x\Source\Repos\JPEGView-Image-Viewer-and-Editor\bin\Debug\x64\JPEGView.exe
+  C:\Users\wei_x\source\repos\JPEGView-Image-Viewer-and-Editor\JPEGView\Config\JPEGView.ini
+  1 File(s) copied
