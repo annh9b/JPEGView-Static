@@ -20,7 +20,7 @@ CString CNLS::GetLocalizedFileName(LPCTSTR sPath, LPCTSTR sPrefixName, LPCTSTR s
 		}
 	}
 	if (sNLSFile.IsEmpty()) {
-		sNLSFile = CString(sPath) + sPrefixName + _T("_") + sLanguageCode + __T(".") + sExtension;
+		sNLSFile = CString(sPath) + sPrefixName + _T("_") + sLanguageCode + _T(".") + sExtension;
 	}
 	return sNLSFile;
 }
@@ -29,6 +29,7 @@ CString CNLS::GetStringTableFileName(LPCTSTR sLanguageCode) {
 	return GetLocalizedFileName(CSettingsProvider::This().GetEXEPath(), _T("strings"), _T("txt"), sLanguageCode);
 }
 
+// ignores newlines, ignores invalid lines
 void CNLS::ReadStringTable(LPCTSTR sFileName) {
 	FILE *fptr = _tfopen(sFileName, _T("r, ccs=UTF-8"));
 	if (fptr == NULL) {
@@ -72,6 +73,7 @@ void CNLS::ReadStringTable(LPCTSTR sFileName) {
 				if (bIncrement) pRunning++;
 			}
 		}
+		// go past newline, ingores empty lines
 		while (*pRunning != 0 && (*pRunning == _T('\n') || *pRunning == _T('\r'))) {
 			pRunning++;
 		}

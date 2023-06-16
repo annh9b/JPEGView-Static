@@ -65,11 +65,13 @@ void CHelpDisplayCtl::GenerateHelpDisplay() {
 	TCHAR buffMI[256]; _stprintf_s(buffMI, 256, CNLS::GetString(_T("Mark image for toggling. Use %s to toggle between marked and current image")), _KeyDesc(IDM_TOGGLE));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_MARK_FOR_TOGGLE), buffMI);
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_SHOW_NAVPANEL), m_pMainDlg->GetNavPanelCtl()->IsActive(), CNLS::GetString(_T("Show/hide navigation panel")));
-	m_pHelpDisplay->AddLine(_KeyDesc(IDM_COPY, IDM_COPY_FULL), CNLS::GetString(_T("Copy screen to clipboard/ Copy processed full size image to clipboard")));
+	m_pHelpDisplay->AddLine(_KeyDesc(IDM_COPY, IDM_COPY_FULL), CNLS::GetString(_T("Copy screen to clipboard / Copy processed full size image to clipboard")));
+	m_pHelpDisplay->AddLine(_KeyDesc(IDM_COPY_PATH), CNLS::GetString(_T("Copy file path of the image to clipboard")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_OPEN), CNLS::GetString(_T("Open new image or slideshow file")));
+	m_pHelpDisplay->AddLine(_KeyDesc(IDM_EXPLORE), CNLS::GetString(_T("Open folder containing image and select in Windows Explorer")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_SAVE_ALLOW_NO_PROMPT), CNLS::GetString(_T("Save processed image to JPEG file (original size)")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_SAVE_SCREEN), CNLS::GetString(_T("Save processed image to JPEG file (screen size)")));
-	_stprintf_s(buffMI, 256, CNLS::GetString(_T("Save (%s)/ delete (%s) image processing parameters in/from parameter DB")), _KeyDesc(IDM_SAVE_PARAM_DB), _KeyDesc(IDM_CLEAR_PARAM_DB));
+	_stprintf_s(buffMI, 256, CNLS::GetString(_T("Save (%s) / delete (%s) image processing parameters into/from parameter DB")), _KeyDesc(IDM_SAVE_PARAM_DB), _KeyDesc(IDM_CLEAR_PARAM_DB));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_SAVE_PARAM_DB, IDM_CLEAR_PARAM_DB), buffMI);
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_SORT_CREATION_DATE, IDM_SORT_MOD_DATE, IDM_SORT_NAME, IDM_SORT_RANDOM), 
 		(m_pMainDlg->GetFileList()->GetSorting() == Helpers::FS_LastModTime) ? _KeyDesc(IDM_SORT_MOD_DATE) :
@@ -90,10 +92,12 @@ void CHelpDisplayCtl::GenerateHelpDisplay() {
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_COLOR_CORRECTION_INC, IDM_COLOR_CORRECTION_DEC), buff3, CNLS::GetString(_T("Increase/decrease auto color cast correction amount")));
 	TCHAR buff4[16]; _stprintf_s(buff4, 16, _T("%.2f"), m_pImageProcParams->ContrastCorrectionFactor);
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_CONTRAST_CORRECTION_INC, IDM_CONTRAST_CORRECTION_DEC), buff4, CNLS::GetString(_T("Increase/decrease auto contrast correction amount")));
-	m_pHelpDisplay->AddLine(_T("1 .. 9"), CNLS::GetString(_T("Slide show with timeout of n seconds (ESC to stop)")));
+	m_pHelpDisplay->AddLine(_T("1 .. 9"), CNLS::GetString(_T("Slideshow with timeout of 'n' seconds (ESC to stop)")));
 	m_pHelpDisplay->AddLineInfo(_T("Ctrl[+Shift] 1 .. 9"),  LPCTSTR(NULL), CNLS::GetString(_T("Set timeout to n/10 sec, respectively n/100 sec (Ctrl+Shift)")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_ROTATE_270, IDM_ROTATE_90), CNLS::GetString(_T("Rotate image and fit to screen")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_FIT_TO_SCREEN), CNLS::GetString(_T("Fit image to screen")));
+	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_HIDE_TITLE_BAR), m_pMainDlg->IsWindowBorderless(), CNLS::GetString(_T("Toggle window title bar hidden mode")));
+	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_ALWAYS_ON_TOP), m_pMainDlg->IsAlwaysOnTop(), CNLS::GetString(_T("Toggle window always on top mode")));
 	m_pHelpDisplay->AddLine(_KeyDesc(IDM_TOGGLE_FIT_TO_SCREEN_100_PERCENTS), CNLS::GetString(_T("Zoom 1:1 (100 %)")));
 	TCHAR buff5[16]; buff5[0] = 0; if (m_pMainDlg->GetZoom() > 0) _stprintf_s(buff5, 16, _T("%.0f %%"), m_pMainDlg->GetZoom() * 100);
 	_stprintf_s(buffMI, 256, CNLS::GetString(_T("Zoom in (%s)/Zoom out (%s)")), _KeyDesc(IDM_ZOOM_INC), _KeyDesc(IDM_ZOOM_DEC));

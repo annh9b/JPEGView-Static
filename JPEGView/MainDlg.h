@@ -63,6 +63,7 @@ public:
 		MESSAGE_HANDLER(WM_SIZE, OnSize)
 		MESSAGE_HANDLER(WM_GETMINMAXINFO, OnGetMinMaxInfo)
 		MESSAGE_HANDLER(WM_PAINT, OnPaint)
+		MESSAGE_HANDLER(WM_NCHITTEST, OnNCHitTest)
 		MESSAGE_HANDLER(WM_NCLBUTTONDOWN, OnNCLButtonDown)
 		MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
 		MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
@@ -107,6 +108,7 @@ public:
 	LRESULT OnGetMinMaxInfo(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnNCLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+	LRESULT OnNCHitTest(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnRButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnRButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
@@ -155,6 +157,9 @@ public:
 	bool IsShowZoomFactor() { return m_bShowZoomFactor; }
 	bool IsPanMouseCursorSet() { return m_bPanMouseCursorSet; }
 	bool IsMouseOn() { return m_bMouseOn; }
+	bool IsWindowBorderless() { return m_bWindowBorderless; }
+	bool IsAlwaysOnTop() { return m_bAlwaysOnTop; }
+
 	CPoint GetMousePos() { return CPoint(m_nMouseX, m_nMouseY); }
 	double GetZoom() { return m_dZoom; }
 	int GetRotation() { return m_nRotation; }
@@ -220,7 +225,7 @@ public:
 private:
 
 	CString m_sStartupFile; // file passed on command line
-	int m_nAutoStartSlideShow; // if positive: Auto start slide show with given intervall in seconds, passed on command line
+	int m_nAutoStartSlideShow; // if positive: Auto start slide show with given interval in seconds, passed on command line
 	bool m_bAutoExit;
 	Helpers::ESorting m_eForcedSorting; // forced sorting mode on command line
 	CFileList* m_pFileList; // used for navigation
@@ -228,6 +233,7 @@ private:
 	CJPEGProvider * m_pJPEGProvider; // reads image (of any format, not only JPEGs) files, using read ahead
 	CJPEGImage * m_pCurrentImage; // currently displayed image
 	bool m_bOutOfMemoryLastImage; // true if the last image could not be requested because not enough memory
+	bool m_bExceptionErrorLastImage; // true if the last image could not be requested because of an unhandled exception
 	int m_nLastLoadError; // one of HelpersGUI::EFileLoadError
 	
 	// Current parameter set
@@ -279,6 +285,7 @@ private:
 	CPoint m_DIBOffsets;
 	int m_nCapturedX, m_nCapturedY;
 	int m_nMouseX, m_nMouseY;
+	bool m_bDefaultSelectionMode;
 	bool m_bShowFileName;
 	bool m_bFullScreenMode;
 	bool m_bAutoFitWndToImage;
@@ -321,7 +328,11 @@ private:
 	bool m_bUseLosslessWEBP;
 	bool m_isBeforeFileSelected;
 	double m_dLastImageDisplayTime;
+	bool m_bWindowBorderless;
+	bool m_bAlwaysOnTop;
+	bool m_bSelectZoom;  // keeps track of select-to-zoom mode when CTRL+SHIFT+LMouse
 
+	void ExploreFile();
 	bool OpenFileWithDialog(bool bFullScreen, bool bAfterStartup);
 	void OpenFile(LPCTSTR sFileName, bool bAfterStartup);
 	bool SaveImage(bool bFullSize);
@@ -335,7 +346,7 @@ private:
 	void AdjustGamma(double dFactor);
 	void AdjustContrast(double dInc);
 	void AdjustSharpen(double dInc);
-	void PerformZoom(double dValue, bool bExponent, bool bZoomToMouse, bool bAdjustWindowToImage);
+	bool PerformZoom(double dValue, bool bExponent, bool bZoomToMouse, bool bAdjustWindowToImage);
 	void ZoomToSelection();
 	double GetZoomFactorForFitToScreen(bool bFillWithCrop, bool bAllowEnlarge);
 	CProcessParams CreateProcessParams(bool bNoProcessingAfterLoad);
@@ -363,6 +374,7 @@ private:
 	void CleanupAndTerminate();
 	void InvalidateHelpDlg();
 	bool CloseHelpDlg();
+	LONG SetCurrentWindowStyle();
 	// this is for animated GIFs
 	void StartAnimation();
 	void AdjustAnimationFrameTime();

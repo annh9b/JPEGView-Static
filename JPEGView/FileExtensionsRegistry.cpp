@@ -208,10 +208,12 @@ static void RegisterInMRU(LPCTSTR sRegMRUPath) {
 		}
 	}
 	// append another entry to the MRU list with JPEGView.exe
-	CString nextMRUEntry; // could not just cast CString(int), kept getting 
+	CString nextMRUEntry = CString(wchar_t(mruList.GetAt(mruList.GetLength() - 1) + 1));
+	// another solution
 	// https://stackoverflow.com/questions/12602526/how-can-i-convert-an-int-to-a-cstring
+	// could not just cast CString(int), kept getting
 	// error C2440: '<function-style-cast>': cannot convert from 'int' to 'ATL::CString'
-	nextMRUEntry.Format(_T("%d"), mruList.GetAt(mruList.GetLength() - 1) + 1);
+	// CString nextMRUEntry; nextMRUEntry.Format(_T("%d"), mruList.GetAt(mruList.GetLength() - 1) + 1);
 	if (nextMRUEntry.GetAt(0) <= _T('z') && SetRegistryStringValue(key, _T("MRUList"), mruList + nextMRUEntry)) {
 		SetRegistryStringValue(key, nextMRUEntry, _T("JPEGView.exe"));
 	}
@@ -378,7 +380,7 @@ static RegResult ResetPermissionsForRegistryKey(LPCTSTR subKeyRelativeToHKCU)
 
 	const int MAX_SIZE_SEC_DESC = 1024;
 	SECURITY_DESCRIPTOR* pExistingSecDesc = (SECURITY_DESCRIPTOR*)new char[MAX_SIZE_SEC_DESC];
-	std::auto_ptr<char> auto_ptr_sec_desc((char*)pExistingSecDesc);
+	std::unique_ptr<char> auto_ptr_sec_desc((char*)pExistingSecDesc);
 
 	// Get the existing DACL of the registry key
 	DWORD sizeDecDesc = MAX_SIZE_SEC_DESC;
@@ -560,10 +562,10 @@ bool CFileExtensionsRegistrationWindows8::RegisterJPEGView() {
 	
 	// Declare all supported file endings
 	CString fileEndings = CFileList::GetSupportedFileEndings();
-	int lenght = fileEndings.GetLength();
-	LPTSTR buffer = fileEndings.GetBuffer(lenght + 1);
+	int length = fileEndings.GetLength();
+	LPTSTR buffer = fileEndings.GetBuffer(length + 1);
 	LPCTSTR fileEnding = buffer;
-	for (int i = 0; i <= lenght; i++) {
+	for (int i = 0; i <= length; i++) {
 		if (buffer[i] == _T(';') || buffer[i] == 0) {
 			fileEnding++; // strip the *
 			buffer[i] = 0;

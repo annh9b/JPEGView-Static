@@ -82,8 +82,12 @@ namespace Helpers {
 	};
 
 	// Maximum and minimum allowed zoom factors for images
-	const double ZoomMax = 16.0;
-	const double ZoomMin = 0.1;
+	const double ZoomMax = DBL_MAX; // unbound the maximum zoom, previously set at 16.0 (1600%)
+	const double ZoomMin = DBL_MIN; // unbound the minimum zoom, previously set at 0.1 (10%)
+
+	// this is specified all over the code as the maximum image dimension that one side can be
+	// this particular variable will have limited usage, but is used to reflect that limitation.  DO NOT CHANGE
+	const int MAX_IMAGE_DIMENSION = 65535;
 
 	// Round to integer
 	inline int RoundToInt(double d) {
@@ -130,7 +134,7 @@ namespace Helpers {
 	void GetZoomParameters(float & fZoom, CPoint & offsets, CSize imageSize, CSize windowSize, CRect zoomRect);
 
 	// Gets a window rectangle (in screen coordinates) that fits the given image
-	CRect GetWindowRectMatchingImageSize(HWND hWnd, CSize minSize, CSize maxSize, double& dZoom, CJPEGImage* pImage, bool bForceCenterWindow, bool bKeepAspectRatio);
+	CRect GetWindowRectMatchingImageSize(HWND hWnd, CSize minSize, CSize maxSize, double& dZoom, CJPEGImage* pImage, bool bForceCenterWindow, bool bKeepAspectRatio, bool bWindowBorderless);
 
 	// Gets if the given image can be displayed without sampling down the image.
 	bool CanDisplayImageWithoutResize(HWND hWnd, CJPEGImage* pImage);
@@ -140,6 +144,9 @@ namespace Helpers {
 
 	// Gets the maximum client size for a framed window that fits into the working area of the screen the given window is placed on
 	CSize GetMaxClientSize(HWND hWnd);
+
+	// gets the size from GetSystemMetrics() for SM_CYCAPTION
+	int GetWindowCaptionSize();
 
 	// Gets the total border size of a window. This includes the frame sizes and the size of the window caption area.
 	// The window size equals the client area size plus this border size

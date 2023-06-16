@@ -66,7 +66,7 @@ static void HandleErrorAndCloseHandle(EFileError eError, LPCTSTR sParamDBName, H
 		::FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, NULL, lastError,
 			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR) &lpMsgBuf, 0, NULL);
 		sError += _T("\n");
-		sError += CNLS::GetString(_T("Reason: "));
+		sError += CNLS::GetString(_T("Reason:")); sError += _T(" ");
 		sError += lpMsgBuf;
 		LocalFree(lpMsgBuf);
 	}
@@ -301,7 +301,7 @@ uint8 CParameterDBEntry::Convert(float value, float lowerLimit, float upperLimit
 float CParameterDBEntry::Convert(uint8 value, float lowerLimit, float upperLimit, bool isLog10) const {
 	float fValue = value*(upperLimit - lowerLimit)/255.0f + lowerLimit;
 	if (isLog10) {
-		fValue = pow(fValue, 10);
+		fValue = powf(fValue, 10);
 	}
 	return fValue;
 }
@@ -421,7 +421,7 @@ bool CParameterDB::MergeParamDB(LPCTSTR sParamDBName) {
 				// Entry to be merged already in parameter DB
 				if (!bAlreadyAsked) {
 					bPreserve = IDYES == ::MessageBox(NULL, CString(CNLS::GetString(_T("The imported param DB contains entries already present in active param DB."))) + _T("\n") +
-						CNLS::GetString(_T("Shall existing entries be preserved (Yes) or be overriden by the imported entries (No)?")),
+						CNLS::GetString(_T("Shall existing entries be preserved (Yes) or be overwritten by the imported entries (No)?")),
 						CNLS::GetString(_T("Conflicting entries in Param DB")), MB_YESNO | MB_ICONQUESTION);
 					bAlreadyAsked = true;
 				}
@@ -618,7 +618,7 @@ bool CParameterDB::SaveToFile(int nIndex, const CParameterDBEntry & dbEntry) {
 		return false;
 	}
 
-	// Check header, do not override unknown files or versions
+	// Check header, do not overwrite unknown files or versions
 	__int64 nFileSize;
 	::GetFileSizeEx(hFile, (PLARGE_INTEGER)&nFileSize);
 	if (nFileSize >= sizeof(ParameterDBHeader)) {

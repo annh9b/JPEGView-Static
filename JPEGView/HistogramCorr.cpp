@@ -211,7 +211,7 @@ static void CalculateLUT(uint8* pTarget, float fBlackPt, float fWhitePt, float f
 	}
 }
 
-// Calculates the color componsation needed due to black/white point correction
+// Calculates the color compensation needed due to black/white point correction
 static float CalcBWColorCompensation(float fMidPt, float fBlackPt, float fWhitePt) {
 	float fA = 1.0f/max(0.001f, fWhitePt - fBlackPt);
 	float fB = -fBlackPt*fA;
@@ -226,7 +226,7 @@ uint8* CHistogramCorr::CalculateCorrectionLUT(const CHistogram & histogram, floa
 											  const float fColorCastCorrection[3], const float fColorCorrectionStrength[6],
 											  float fContrastCorrectionFactor) {
 	const float cCuttingLevel = 0.001f; // black/white point cutting level
-	const float cBrightnessCorr = 1.0f; // strenght of brighness correction
+	const float cBrightnessCorr = 1.0f; // strength of brightness correction
 	const float cLog0dot5 = log10f(0.5f);
 	const float cCastFactor = 0.3f;
 
@@ -248,15 +248,15 @@ uint8* CHistogramCorr::CalculateCorrectionLUT(const CHistogram & histogram, floa
 
 	// Reduce the maximal applied correction - if the black or white point is far from 0,
 	// respectively 1, we only apply a decreasing fraction of the full correction.
-	float fHistogramWidthFactor = pow((fWhitePtGrey - fBlackPtGrey), fStrength*0.5f);
-	fBlackPtB = fBlackPtB*pow((1 - fBlackPtB)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
-	fBlackPtG = fBlackPtG*pow((1 - fBlackPtG)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
-	fBlackPtR = fBlackPtR*pow((1 - fBlackPtR)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
-	fWhitePtB = 1 - (1 - fWhitePtB)*pow(fWhitePtB*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
-	fWhitePtG = 1 - (1 - fWhitePtG)*pow(fWhitePtG*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
-	fWhitePtR = 1 - (1 - fWhitePtR)*pow(fWhitePtR*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
+	float fHistogramWidthFactor = powf((fWhitePtGrey - fBlackPtGrey), fStrength*0.5f);
+	fBlackPtB = fBlackPtB*powf((1 - fBlackPtB)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
+	fBlackPtG = fBlackPtG*powf((1 - fBlackPtG)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
+	fBlackPtR = fBlackPtR*powf((1 - fBlackPtR)*(1 - fBlackPtGrey), fStrength)*fHistogramWidthFactor;
+	fWhitePtB = 1 - (1 - fWhitePtB)*powf(fWhitePtB*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
+	fWhitePtG = 1 - (1 - fWhitePtG)*powf(fWhitePtG*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
+	fWhitePtR = 1 - (1 - fWhitePtR)*powf(fWhitePtR*fWhitePtGrey, fStrength)*fHistogramWidthFactor;
 
-	// If the brighness decreased by the correction, undo this
+	// If the brightness decreased by the correction, undo this
 	float fMeanBlackPt = (fBlackPtB + fBlackPtG + fBlackPtR)/3;
 	float fMeanWhitePt = (fWhitePtB + fWhitePtG + fWhitePtR)/3; 
 	float fA = 1.0f/(fMeanWhitePt - fMeanBlackPt);

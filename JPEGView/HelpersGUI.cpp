@@ -8,7 +8,7 @@
 
 static void AddFlagText(CString& sText, LPCTSTR sFlagText, bool bFlag) {
 	sText += sFlagText;
-	sText += CNLS::GetString(bFlag ? _T("on") : _T("off"));
+	sText += bFlag ? CNLS::GetString(_T("on")) : CNLS::GetString(_T("off"));
 	sText += _T('\n');
 }
 
@@ -184,7 +184,8 @@ namespace HelpersGUI {
 							sNewMenuText += pKeyMap->GetKeyStringForCommand(nCommand);
 						}
 					} else {
-						sNewMenuText += pTab;
+						// if the text after the \t is not a hex code, append it translated
+						sNewMenuText += CNLS::GetString(pTab);
 					}
 				} else if (!sKeyDesc.IsEmpty()) {
 					sNewMenuText += _T('\t');
@@ -263,7 +264,7 @@ namespace HelpersGUI {
 	}
 
 	CString GetINIFileSaveConfirmationText(const CImageProcessingParams& procParams, 
-		EProcessingFlags eProcFlags, Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedUpcounting,
+		EProcessingFlags eProcFlags, Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedAscending,
 		Helpers::EAutoZoomMode eAutoZoomMode,
 		bool bShowNavPanel, bool bShowFileName, bool bShowFileInfo,
 		Helpers::ETransitionEffect eSlideShowTransitionEffect) {
@@ -294,10 +295,10 @@ namespace HelpersGUI {
 			_stprintf_s(buff, BUFF_SIZE, CString(CNLS::GetString(_T("Deep Shadows"))) + _T(": %.2f\n"), procParams.LightenShadowSteepness);
 			sText += buff;
 		}
-		AddFlagText(sText, CNLS::GetString(_T("Auto contrast and color correction: ")), GetProcessingFlag(eProcFlags, PFLAG_AutoContrast));
-		AddFlagText(sText, CNLS::GetString(_T("Local density correction: ")), GetProcessingFlag(eProcFlags, PFLAG_LDC));
-		AddFlagText(sText, CNLS::GetString(_T("High quality resampling: ")), GetProcessingFlag(eProcFlags, PFLAG_HighQualityResampling));
-		AddFlagText(sText, CString(CNLS::GetString(_T("Keep parameters"))) + _T(": "), GetProcessingFlag(eProcFlags, PFLAG_KeepParams));
+		AddFlagText(sText, CNLS::GetString(_T("Auto contrast and color correction")) + CString(_T(": ")), GetProcessingFlag(eProcFlags, PFLAG_AutoContrast));
+		AddFlagText(sText, CNLS::GetString(_T("Local density correction")) + CString(_T(": ")), GetProcessingFlag(eProcFlags, PFLAG_LDC));
+		AddFlagText(sText, CNLS::GetString(_T("High quality resampling")) + CString(_T(": ")), GetProcessingFlag(eProcFlags, PFLAG_HighQualityResampling));
+		AddFlagText(sText, CNLS::GetString(_T("Keep parameters")) + CString(_T(": ")), GetProcessingFlag(eProcFlags, PFLAG_KeepParams));
 		sText += CNLS::GetString(_T("Navigation")); sText += _T(": ");
 		if (eNavigationMode == Helpers::NM_LoopSameDirectoryLevel) {
 			sText += CNLS::GetString(_T("Loop siblings"));
@@ -309,7 +310,7 @@ namespace HelpersGUI {
 			sText += CNLS::GetString(_T("Loop folder"));
 		}
 		sText += _T("\n");
-		sText += CNLS::GetString(_T("Order files by: "));
+		sText += CNLS::GetString(_T("Order files by")); sText += _T(": ");
 		if (eFileSorting == Helpers::FS_CreationTime) {
 			sText += CNLS::GetString(_T("Creation date/time"));
 		} else if (eFileSorting == Helpers::FS_LastModTime) {
@@ -323,7 +324,7 @@ namespace HelpersGUI {
 		}
 		if (eFileSorting != Helpers::FS_Random) {
 			sText += _T(", ");
-			sText += isSortedUpcounting ? CNLS::GetString(_T("Upcounting")) : CNLS::GetString(_T("Downcounting"));
+			sText += isSortedAscending ? CNLS::GetString(_T("Ascending")) : CNLS::GetString(_T("Descending"));
 		}
 		sText += _T("\n");
 		sText += CNLS::GetString(_T("Auto zoom mode")); sText += _T(": ");
@@ -397,9 +398,9 @@ namespace HelpersGUI {
 		return sText;
 	}
 
-	void DrawImageLoadErrorText(CDC& dc, const CRect& clientRect, LPCTSTR sFailedFileName, int nFileLoadError) {
-		bool bOutOfMemory = nFileLoadError & FileLoad_OutOfMemory;
-		nFileLoadError &= ~FileLoad_OutOfMemory;
+	void DrawImageLoadErrorText(CDC& dc, const CRect& clientRect, LPCTSTR sFailedFileName, int nFileLoadError, int nLoadErrorDetail) {
+		bool bOutOfMemory = nLoadErrorDetail & FileLoad_OutOfMemory;
+		bool bExceptionError = nLoadErrorDetail & FileLoad_ExceptionError;
 
 		const int BUF_LEN = 512;
 		TCHAR buff[BUF_LEN];
@@ -424,7 +425,22 @@ namespace HelpersGUI {
 		}
 		if (bOutOfMemory) {
 			_tcscat_s(buff, BUF_LEN, _T("\n"));
-			_tcscat_s(buff, BUF_LEN, CNLS::GetString(_T("Reason: Not enough memory available")));
+			_tcscat_s(buff, BUF_LEN, CString(CNLS::GetString(_T("Reason:"))) + _T(" ") + CNLS::GetString(_T("Not enough memory available")));
+		} else if (nFileLoadError == FileLoad_LoadError) {
+			LPCTSTR sEnding = _tcsrchr(sFailedFileName, _T('.'));
+			if (sEnding != NULL) {
+				sEnding += 1;
+				if (_tcsicmp(sEnding, _T("JXL")) == 0 ||
+					_tcsicmp(sEnding, _T("HEIF")) == 0 ||
+					_tcsicmp(sEnding, _T("HEIC")) == 0 ||
+					_tcsicmp(sEnding, _T("AVIF")) == 0) {
+
+					if (bExceptionError) {
+						_tcscat_s(buff, BUF_LEN, _T("\n"));
+						_tcscat_s(buff, BUF_LEN, CNLS::GetString(_T("Decoding this format requires the Microsoft Visual C++ Redistributable.")));
+					}
+				}
+			}
 		}
 		dc.DrawText(buff, -1, &rectText, DT_CENTER | DT_WORDBREAK | DT_NOPREFIX);
 	}
@@ -477,4 +493,17 @@ namespace HelpersGUI {
 		return FindCommand(index, CSettingsProvider::This().OpenWithCommandList());
 	}
 
+	bool SetMenuTextById(HMENU hMenu, int nMenuId, CString sText) {
+		// While ModifyMenu works... it destroys and recreates menu, so it wouldn't preserve any existing properties like disabled or checked...
+		// https://stackoverflow.com/questions/6834541/problems-with-cmenumodifymenu
+		// ::ModifyMenu(hMenuCropMode, IDM_CROPMODE_5_4, MF_CHECKED | MF_STRING, 0, _T("Test AR")) ... you would have to re-set all the previous properties
+
+		MENUITEMINFO itemInfo;
+		memset(&itemInfo, 0, sizeof(MENUITEMINFO));
+		itemInfo.cbSize = sizeof(MENUITEMINFO);
+		itemInfo.fMask = MIIM_STRING;
+		itemInfo.dwTypeData = (LPTSTR)(LPCTSTR)sText;
+		itemInfo.cch = sText.GetLength();
+		return ::SetMenuItemInfo(hMenu, nMenuId, FALSE, &itemInfo);
+	}
 }

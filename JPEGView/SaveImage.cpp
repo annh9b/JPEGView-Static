@@ -8,6 +8,8 @@
 #include "EXIFReader.h"
 #include "TJPEGWrapper.h"
 #include "libjpeg-turbo\include\turbojpeg.h"
+#include "WEBPWrapper.h"
+#include "QOIWrapper.h"
 #include <gdiplus.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -225,10 +227,6 @@ static void* CompressAndSave(LPCTSTR sFileName, CJPEGImage * pImage,
 	return pTargetStream;
 }
 
-__declspec(dllimport) size_t Webp_Dll_EncodeBGRLossy(const uint8* bgr, int width, int height, int stride, float quality_factor, uint8** output);
-__declspec(dllimport) size_t Webp_Dll_EncodeBGRLossless(const uint8* bgr, int width, int height, int stride, uint8** output);
-__declspec(dllimport) void Webp_Dll_FreeMemory(void* pointer);
-
 // pData must point to 24 bit BGR DIB
 static bool SaveWebP(LPCTSTR sFileName, void* pData, int nWidth, int nHeight, bool bUseLosslessWEBP) {
 	FILE *fptr = _tfopen(sFileName, _T("wb"));
@@ -239,14 +237,42 @@ static bool SaveWebP(LPCTSTR sFileName, void* pData, int nWidth, int nHeight, bo
 	bool bSuccess = false;
 	try {
 		uint8* pOutput;
+		size_t nSize;
 		int nQuality = CSettingsProvider::This().WEBPSaveQuality();
-		size_t nSize = bUseLosslessWEBP ? 
-			Webp_Dll_EncodeBGRLossless((uint8*)pData, nWidth, nHeight, Helpers::DoPadding(nWidth*3, 4), &pOutput) :
-			Webp_Dll_EncodeBGRLossy((uint8*)pData, nWidth, nHeight, Helpers::DoPadding(nWidth*3, 4), (float)nQuality, &pOutput);
+		pOutput = (uint8*)WebpReaderWriter::Compress((uint8*)pData, nWidth, nHeight, nSize, nQuality, bUseLosslessWEBP);
 		bSuccess = fwrite(pOutput, 1, nSize, fptr) == nSize;
 		fclose(fptr);
-		Webp_Dll_FreeMemory(pOutput);
+		WebpReaderWriter::FreeMemory(pOutput);
 	} catch(...) {
+		fclose(fptr);
+	}
+
+	// delete partial file if no success
+	if (!bSuccess) {
+		_tunlink(sFileName);
+		return false;
+	}
+
+	return true;
+}
+
+// pData must point to 24 bit BGR DIB
+static bool SaveQOI(LPCTSTR sFileName, void* pData, int nWidth, int nHeight) {
+	FILE* fptr = _tfopen(sFileName, _T("wb"));
+	if (fptr == NULL) {
+		return false;
+	}
+
+	bool bSuccess = false;
+	try {
+		uint8* pOutput;
+		int nSize;
+		pOutput = (uint8*)QoiReaderWriter::Compress((uint8*)pData, nWidth, nHeight, nSize);
+		bSuccess = fwrite(pOutput, 1, nSize, fptr) == nSize;
+		fclose(fptr);
+		QoiReaderWriter::FreeMemory(pOutput);
+	}
+	catch (...) {
 		fclose(fptr);
 	}
 
@@ -284,7 +310,7 @@ static int GetEncoderClsid(const WCHAR* format, CLSID* pClsid) {
    return -1;  // Failure
 }
 
-// Saves the given 24 bpp DIB data to the file namge given using GDI+
+// Saves the given 24 bpp DIB data to the file name given using GDI+
 static bool SaveGDIPlus(LPCTSTR sFileName, EImageFormat eFileFormat, void* pData, int nWidth, int nHeight) {
 	Gdiplus::Bitmap* pBitmap = new Gdiplus::Bitmap(nWidth, nHeight, Helpers::DoPadding(nWidth*3, 4), PixelFormat24bppRGB, (BYTE*)pData);
 	if (pBitmap->GetLastStatus() != Gdiplus::Ok) {
@@ -371,6 +397,8 @@ bool CSaveImage::SaveImage(LPCTSTR sFileName, CJPEGImage * pImage, const CImageP
 	} else {
 		if (eFileFormat == IF_WEBP) {
 			bSuccess = SaveWebP(sFileName, pDIB24bpp, imageSize.cx, imageSize.cy, bUseLosslessWEBP);
+		} else if (eFileFormat == IF_QOI) {
+			bSuccess = SaveQOI(sFileName, pDIB24bpp, imageSize.cx, imageSize.cy);
 		} else {
 			bSuccess = SaveGDIPlus(sFileName, eFileFormat, pDIB24bpp, imageSize.cx, imageSize.cy);
 		}

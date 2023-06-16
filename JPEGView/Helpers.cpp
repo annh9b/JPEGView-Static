@@ -212,7 +212,7 @@ CPUType ProbeCPU(void) {
 #ifdef _WIN64
 	return ProbeSSEorAVX2(); // 64 bit always supports at least SSE
 #else
-	// Structured exception handling is mantatory, try/catch(...) does not catch such severe stuff.
+	// Structured exception handling is mandatory, try/catch(...) does not catch such severe stuff.
 	cpuType = CPU_Generic;
 	__try {
 		uint32 FeatureMask;
@@ -539,25 +539,53 @@ double GetExactTickCount() {
 	}
 }
 
+int GetWindowCaptionSize() {
+	return ::GetSystemMetrics(SM_CYCAPTION);
+}
+
 CSize GetTotalBorderSize() {
-	const int SM_CXP_ADDEDBORDER = 92;
+	const int SM_CXP_ADDEDBORDER = 92;  // in MSDN this is SM_CXPADDEDBORDER, but for some reason it's not always available depending on configuration
 	int nBorderWidth = (::GetSystemMetrics(SM_CXSIZEFRAME) + ::GetSystemMetrics(SM_CXP_ADDEDBORDER)) * 2;
 	int nBorderHeight = (::GetSystemMetrics(SM_CYSIZEFRAME) + ::GetSystemMetrics(SM_CXP_ADDEDBORDER)) * 2 + ::GetSystemMetrics(SM_CYCAPTION);
 	return CSize(nBorderWidth, nBorderHeight);
 }
 
-CRect GetWindowRectMatchingImageSize(HWND hWnd, CSize minSize, CSize maxSize, double& dZoom, CJPEGImage* pImage, bool bForceCenterWindow, bool bKeepAspectRatio) {
-	const int SM_CXP_ADDEDBORDER = 92;
-	
+CRect GetWindowRectMatchingImageSize(HWND hWnd, CSize minSize, CSize maxSize, double& dZoom, CJPEGImage* pImage, bool bForceCenterWindow, bool bKeepAspectRatio, bool bWindowBorderless) {
 	int nOrigWidth = (pImage == NULL) ? ::GetSystemMetrics(SM_CXSCREEN) / 2 : pImage->OrigWidth();
 	int nOrigWidthUnzoomed = nOrigWidth;
 	int nOrigHeight = (pImage == NULL) ? ::GetSystemMetrics(SM_CYSCREEN) / 2 : pImage->OrigHeight();
-	if (dZoom > 0) {
-		nOrigWidth = (int) (nOrigWidth * dZoom + 0.5);
-		nOrigHeight = (int) (nOrigHeight * dZoom + 0.5);
+	if (dZoom == ZoomMax) {
+		// NOTE: somewhat hacky, but the original code did not account for ZoomMax == DBL_MAX, causing overflows
+		//       This workaround artificially calculates an image that is == the maximum allowed dimensions,
+		//       so as to not overflow int or double
+		//
+		// when dZoom was unbounded to DBL_MAX in 1.1.44, doing any arithmetic would cause the nOrig* to overflow
+		// So just set to scaled maximum allowed image dimension on one side
+		// the math below will not overflow, and it stays within the bounds of an integer
+		if (nOrigWidth == nOrigHeight) {
+			// ratio is 1:1
+			nOrigWidth = nOrigHeight = MAX_IMAGE_DIMENSION;
+		} else if (nOrigWidth > nOrigHeight) {
+			// wider than high
+			nOrigHeight = (int)((double)nOrigHeight / nOrigWidth * MAX_IMAGE_DIMENSION);  // max * height/width ratio
+			nOrigWidth = MAX_IMAGE_DIMENSION;
+		} else {
+			// higher than wide
+			nOrigWidth = (int)((double)nOrigWidth / nOrigHeight * MAX_IMAGE_DIMENSION);  // max * width/height ratio
+			nOrigHeight = MAX_IMAGE_DIMENSION;
+		}
+	} else if (dZoom > 0) {
+		nOrigWidth = (int)(nOrigWidth * dZoom + 0.5);
+		nOrigHeight = (int)(nOrigHeight * dZoom + 0.5);
 	}
 
-	CSize borderSize = GetTotalBorderSize();
+	CSize borderSize;
+	if (!bWindowBorderless) {
+		borderSize = GetTotalBorderSize();
+	} else {
+		borderSize = { 0, 0 };
+	}
+
 	int nRequiredWidth = borderSize.cx + nOrigWidth;
 	int nRequiredHeight = borderSize.cy + nOrigHeight;
 	CRect workingArea = CMultiMonitorSupport::GetWorkingRect(hWnd);
@@ -735,8 +763,16 @@ EImageFormat GetImageFormat(LPCTSTR sFileName) {
 			return IF_TIFF;
 		} else if (_tcsicmp(sEnding, _T("WEBP")) == 0) {
 			return IF_WEBP;
-		}  else if (_tcsicmp(sEnding, _T("TGA")) == 0) {
+		} else if (_tcsicmp(sEnding, _T("JXL")) == 0) {
+			return IF_JXL;
+		} else if (_tcsicmp(sEnding, _T("AVIF")) == 0) {
+			return IF_AVIF;
+		} else if (_tcsicmp(sEnding, _T("HEIF")) == 0 || _tcsicmp(sEnding, _T("HEIC")) == 0) {
+			return IF_HEIF;
+		} else if (_tcsicmp(sEnding, _T("TGA")) == 0) {
 			return IF_TGA;
+		} else if (_tcsicmp(sEnding, _T("QOI")) == 0) {
+			return IF_QOI;
 		} else if (IsInFileEndingList(CSettingsProvider::This().FilesProcessedByWIC(), sEnding)) {
 			return IF_WIC;
 		} else if (IsInFileEndingList(CSettingsProvider::This().FileEndingsRAW(), sEnding)) {
@@ -868,7 +904,7 @@ CString GetFileInfoString(LPCTSTR sFormat, CJPEGImage* pImage, CFileList* pFilel
 	}
 	bool isClipboardImage = pImage->IsClipboardImage();
 	if (_tcscmp(sFormat, _T("<i>  <p>")) == 0) {
-		if (isClipboardImage) return CString(_T("Clipboard Image"));
+		if (isClipboardImage) return CString(CNLS::GetString(_T("Clipboard Image")));
 		CString sFileInfo;
 		sFileInfo.Format(_T("[%d/%d]  %s"), pFilelist->CurrentIndex() + 1, pFilelist->Size(), pFilelist->Current() + GetMultiframeIndex(pImage));
 		return sFileInfo;
@@ -877,11 +913,11 @@ CString GetFileInfoString(LPCTSTR sFormat, CJPEGImage* pImage, CFileList* pFilel
 	CString sFileInfo(sFormat);
 	sFileInfo.Replace(_T("\\t"), _T("        "));
 	if (_tcsstr(sFormat, _T("<f>")) != NULL) {
-		CString sFileName = isClipboardImage ? _T("Clipboard Image") : pFilelist->CurrentFileTitle() + GetMultiframeIndex(pImage);
+		CString sFileName = isClipboardImage ? CNLS::GetString(_T("Clipboard Image")) : pFilelist->CurrentFileTitle() + GetMultiframeIndex(pImage);
 		sFileInfo.Replace(_T("<f>"), sFileName);
 	}
 	if (_tcsstr(sFormat, _T("<p>")) != NULL) {
-		CString sFilePath = isClipboardImage ? _T("Clipboard Image") : pFilelist->Current() + GetMultiframeIndex(pImage);
+		CString sFilePath = isClipboardImage ? CNLS::GetString(_T("Clipboard Image")) : pFilelist->Current() + GetMultiframeIndex(pImage);
 		sFileInfo.Replace(_T("<p>"), sFilePath);
 	}
 	if (_tcsstr(sFormat, _T("<i>")) != NULL) {
@@ -902,7 +938,7 @@ CString GetFileInfoString(LPCTSTR sFormat, CJPEGImage* pImage, CFileList* pFilel
 	if (_tcsstr(sFormat, _T("<l>")) != NULL) {
 		__int64 fileSize = isClipboardImage ? 0 : GetFileSize(pFilelist->Current());
 		CString sFileSize;
-		if (fileSize >= 1024 * 1024 * 100) {
+		if (fileSize >= 1024 * 1024) {
 			sFileSize.Format(_T("%d MB"), (int)(fileSize >> 20));
 		} else if (fileSize >= 1024) {
 			sFileSize.Format(_T("%d KB"), (int)(fileSize >> 10));

@@ -213,6 +213,12 @@
     <ClCompile Include="TJPEGWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QOIWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ICCProfileTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="JPEGLosslessTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -256,6 +262,15 @@
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="HashCompareLPCTSTR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WEBPWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PNGWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WICLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -501,6 +516,15 @@
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="HashCompareLPCTSTR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WEBPWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QOIWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICCProfileTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

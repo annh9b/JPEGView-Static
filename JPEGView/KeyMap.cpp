@@ -2,10 +2,17 @@
 #include "KeyMap.h"
 #include "NLS.h"
 #include "resource.h"
+#include "Helpers.h"
+#include "SettingsProvider.h"
 
 #define M_SHIFT 0x10000
 #define M_ALT   0x20000
 #define M_CTRL  0x40000
+
+// KeyMap filename constants
+static const TCHAR* KEYMAP_USER_FILE_NAME = _T("KeyMap.txt");
+static const TCHAR* KEYMAP_DEFAULT_FILE_NAME = _T("KeyMap.txt.default");
+static const TCHAR* KEYMAP_SYMBOLS_FILE_NAME = _T("symbols.km");
 
 struct SKey {
 	LPCTSTR Name;
@@ -146,12 +153,45 @@ static CString _GetKeyShortcutName(int nShortcut) {
 	return sKeyDesc;
 }
 
-CKeyMap::CKeyMap(LPCTSTR sKeyMapFile) {
-	FILE *fptr = _tfopen(sKeyMapFile, _T("r"));
-	if (fptr == NULL) {
+// Similar to SettingsProvider, attemps to load the keymap from various locations
+// before settling for the default
+//
+// First tries to see if /keymap parameter was passed on command line
+// Then tries %AppData%\JPEGView\KeyMap.txt
+// Then tries (JPEGView root)\KeyMap.txt
+// if none of those, then (JPEGView root)\KeyMap.txt.default
+CKeyMap::CKeyMap() {
+	FILE* fkm_ptr;
+	CString exe_path = CString(CSettingsProvider::This().GetEXEPath());
+
+	// TODO: ParseCommandLineForKeyMapFile or something... where you can specify a custom full file path name for a keymap you'd like to use instead of the default search order
+
+	// check if the use directory keymap.txt exists
+	fkm_ptr = _tfopen(CString(Helpers::JPEGViewAppDataPath()) + KEYMAP_USER_FILE_NAME, _T("r"));
+	if (fkm_ptr == NULL) {
+		// the appdata one doesn't exist, try the local directory
+		fkm_ptr = _tfopen(exe_path + KEYMAP_USER_FILE_NAME, _T("r"));
+		if (fkm_ptr == NULL) {
+			// the user one doesn't exist either, load the default file (if that doesn't exist either someone messed up)
+			fkm_ptr = _tfopen(exe_path + KEYMAP_DEFAULT_FILE_NAME, _T("r"));
+		}
+	}
+
+	// no keymap file found from above
+	if (fkm_ptr == NULL) {
+		// default handling
 		AddDefaultEscapeHandling();
 		return;
 	}
+
+	// no symbols file
+	FILE* fsym_ptr = _tfopen(exe_path + KEYMAP_SYMBOLS_FILE_NAME, _T("r"));
+	if (fsym_ptr == NULL) {
+		fclose(fkm_ptr);
+		AddDefaultEscapeHandling();
+		return;
+	}
+
 
 	const int BUFF_LEN = 256;
 	TCHAR lineBuff[BUFF_LEN];
@@ -163,10 +203,12 @@ CKeyMap::CKeyMap(LPCTSTR sKeyMapFile) {
 
 	stdext::hash_map<LPCTSTR, int, CHashCompareLPCTSTR> m_symbolMap;
 
-	while (_fgetts(lineBuff, BUFF_LEN, fptr) != NULL) {
+	// read the symbols file first to get all valid symbols
+	while (_fgetts(lineBuff, BUFF_LEN, fsym_ptr) != NULL) {
 		LPTSTR sLine = _SkipWhiteSpace(lineBuff);
 		if (*sLine == 0) continue;
 		if (_IsComment(sLine)) continue;
+
 		if (_tcsncmp(sLine, _T("#define"), 7) == 0) {
 			LPTSTR sSymbol = sLine + 7;
 			sSymbol = _SkipWhiteSpace(sSymbol);
@@ -180,21 +222,30 @@ CKeyMap::CKeyMap(LPCTSTR sKeyMapFile) {
 				m_symbolMap[pSymbolTable] = nValue;
 				pSymbolTable += nSymbolLen + 1;
 			} // else the symbol table is full
-		} else {
-			LPTSTR sCommandId = _Parse(sLine);
-			if (*sCommandId == 0) continue;
-			int nCommandId = _FindCommandId(m_symbolMap, sCommandId);
-			if (nCommandId < 0) continue;
-			int nKeyCode = _ParseKeys(sLine);
-			if (nKeyCode == 0) continue;
-			m_keyMap[nKeyCode] = nCommandId;
-		}
-		
+		} // the symbols file is standalone, all other definitions are ignored
+	}
+
+	fclose(fsym_ptr);
+
+	// read just the keymap file
+	while (_fgetts(lineBuff, BUFF_LEN, fkm_ptr) != NULL) {
+		LPTSTR sLine = _SkipWhiteSpace(lineBuff);
+		if (*sLine == 0) continue;
+		if (_IsComment(sLine)) continue;
+		if (_tcsncmp(sLine, _T("#define"), 7) == 0) continue; // the symbols in the KeyMap are ignored (in case you have an old keymap file which defined the symbols and keybindings together)
+
+		LPTSTR sCommandId = _Parse(sLine);
+		if (*sCommandId == 0) continue;
+		int nCommandId = _FindCommandId(m_symbolMap, sCommandId);
+		if (nCommandId < 0) continue;
+		int nKeyCode = _ParseKeys(sLine);
+		if (nKeyCode == 0) continue;
+		m_keyMap[nKeyCode] = nCommandId;
 	}
 
 	AddDefaultEscapeHandling();
 
-	fclose(fptr);
+	fclose(fkm_ptr);
 }
 
 int CKeyMap::GetVirtualKeyCode(LPCTSTR keyName) {

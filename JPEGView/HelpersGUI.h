@@ -17,7 +17,10 @@ namespace HelpersGUI {
 		FileLoad_LoadError = 2,
 		FileLoad_SlideShowListInvalid = 3,
 		FileLoad_NoFilesInDirectory = 4,
-		FileLoad_OutOfMemory = 65536 // can be combined with other error codes
+
+		// these can be combined with other error codes, so make sure they work with bit arithmetic
+		FileLoad_OutOfMemory = 65536,
+		FileLoad_ExceptionError = 32768
 	};
 
 	// Scaling factor to scale from 96 dpi to actual screen DPI, 96 dpi -> 1.0, 120 dpi -> 1.2
@@ -33,7 +36,7 @@ namespace HelpersGUI {
 	// Selects the default GUI font into the given DC.
 	void SelectDefaultGUIFont(HDC dc);
 
-	// Selectes the default system font into the given DC.
+	// Selects the default system font into the given DC.
 	void SelectDefaultSystemFont(HDC dc);
 
 	// Selects the default file name font into the given DC.
@@ -55,13 +58,13 @@ namespace HelpersGUI {
 
 	// Gets the text for confirmation of saving of settings to INI file
 	CString GetINIFileSaveConfirmationText(const CImageProcessingParams& procParams,
-		EProcessingFlags eProcFlags, Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedUpcounting,
+		EProcessingFlags eProcFlags, Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedAscending,
 		Helpers::EAutoZoomMode eAutoZoomMode,
 		bool bShowNavPanel, bool bShowFileName, bool bShowFileInfo,
 		Helpers::ETransitionEffect eSlideShowTransitionEffect);
 
-	// Draws an error text for the given file loading error (combination of EFileLoadError codes)
-	void DrawImageLoadErrorText(CDC& dc, const CRect& clientRect, LPCTSTR sFailedFileName, int nFileLoadError);
+	// Draws an error text for the given file loading error, and detailed load error code (bit combination of EFileLoadError codes)
+	void DrawImageLoadErrorText(CDC& dc, const CRect& clientRect, LPCTSTR sFailedFileName, int nFileLoadError, int nLoadErrorDetail);
 
 	// Convert a menu item command ID to a transformation enumeration for lossless JPEG transformation
 	CJPEGLosslessTransform::ETransformation CommandIdToLosslessTransformation(int nCommandId);
@@ -79,4 +82,7 @@ namespace HelpersGUI {
 	// Finds a open with command given the menu index in the menu as created above
 	CUserCommand* FindOpenWithCommand(int index);
 	
+	// Changes a menu's text, if success returns true, else false
+	bool SetMenuTextById(HMENU hMenu, int nMenuId, CString sText);
+
 }

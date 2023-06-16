@@ -29,9 +29,11 @@ public:
 	double MagentaGreen() { return m_dMagentaGreen; }
 	double YellowBlue() { return m_dYellowBlue; }
 	bool HighQualityResampling() { return m_bHQRS; }
+	bool DefaultSelectionMode() { return m_bDefaultSelectionMode; }
 	bool ShowFileName() { return m_bShowFileName; }
 	bool ShowFileInfo() { return m_bShowFileInfo; }
 	bool ShowEXIFDateInTitle() { return m_bShowEXIFDateInTitle; }
+	bool ShowFullPathInTitle() { return m_bShowFullPathInTitle; }
 	bool ShowHistogram() { return m_bShowHistogram; }
 	bool ShowJPEGComments() { return m_bShowJPEGComments; }
 	bool ShowNavPanel() { return m_bShowNavPanel; }
@@ -47,7 +49,7 @@ public:
 	int NumberOfCoresToUse() { return m_nNumCores; }
 	EFilterType DownsamplingFilter() { return m_eDownsamplingFilter; }
 	Helpers::ESorting Sorting() { return m_eSorting; }
-	bool IsSortedUpcounting() { return m_bIsSortedUpcounting; }
+	bool IsSortedAscending() { return m_bIsSortedAscending; }
 	Helpers::ENavigationMode Navigation() { return m_eNavigation; }
 	bool NavigateWithMouseWheel() { return m_bNavigateMouseWheel; }
 	double MouseWheelZoomSpeed() { return m_dMouseWheelZoomSpeed; }
@@ -79,7 +81,7 @@ public:
 	void AddTemporaryRAWFileEnding(LPCTSTR sEnding) { m_sFileEndingsRAW += CString(_T(";*.")) + sEnding; }
 	bool CreateParamDBEntryOnSave() { return m_bCreateParamDBEntryOnSave; }
 	bool SaveWithoutPrompt() { return m_bSaveWithoutPrompt; }
-	bool TrimWithoutPromptLosslessJPEG() { return m_bTrimWithoutPromptLosslessJPEG; }
+	bool CropWithoutPromptLosslessJPEG() { return m_bCropWithoutPromptLosslessJPEG; }
 	Helpers::EDeleteConfirmation DeleteConfirmation() { return m_eDeleteConfirmation; }
 	bool AllowFileDeletion() { return m_bAllowFileDeletion; }
 	bool WrapAroundFolder() { return m_bWrapAroundFolder && m_eNavigation == Helpers::NM_LoopDirectory; }
@@ -118,27 +120,30 @@ public:
 	double DefaultPrintWidth() { return m_dDefaultPrintWidth; }
 	Helpers::EMeasureUnits MeasureUnit() { return m_eMeasureUnit; }
 	CSize MinimalWindowSize() { return m_minimalWindowSize; }
-	double MinimalDisplayTime() { return m_minimalDisplayTime; }
+	int MinimalDisplayTime() { return m_minimalDisplayTime; }
 	CSize UserCropAspectRatio() { return m_userCropAspectRatio; }
 	LPCTSTR WallpaperPath() { return m_sWallpaperPath; }
 	bool SkipFileOpenDialogOnStartup() { return m_bSkipFileOpenDialogOnStartup; }
 	Helpers::EIniEditor IniEditor() { return m_eIniEditor; }
 	LPCTSTR CustomIniEditor() { return m_sIniEditor; }
 	LPCTSTR GPSMapProvider() { return m_sGPSMapProvider; }
+	bool FlashWindowAlert() { return m_bFlashWindowAlert; }
+	bool BeepSoundAlert() { return m_bBeepSoundAlert; }
+	double ZoomPauseFactor() { return m_zoomPauseFactor; }  // while internally this is represented in doubles, using a whole number percent simplifies it for the user... configuring doubles is not user friendly at all
 
 	// Returns if a user INI file exists
 	bool ExistsUserINI();
-	// Copies the user INI file (in AppData/roamin) from the INI file template JPEGView.ini.tpl
+	// Copies the user INI file (in AppData/Roaming) from the INI file template JPEGView.ini.tpl
 	void CopyUserINIFromTemplate();
 
 	std::list<CUserCommand*> & UserCommandList() { return m_userCommands; }
 	std::list<CUserCommand*> & OpenWithCommandList() { return m_openWithCommands; }
 
-	// This will only save a subset of settings to the inifile located in AppData\JPEGView\JPEGView.ini.
-	// Note that this INI file has precedence over the ini file at the program directory
+	// This will only save a subset of settings to the INI file located in AppData\JPEGView\JPEGView.ini.
+	// Note that this INI file has precedence over the INI file at the program directory
 	void SaveSettings(const CImageProcessingParams& procParams,
 		EProcessingFlags eProcFlags,
-		Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedUpcounting,
+		Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedAscending,
 		Helpers::EAutoZoomMode eAutoZoomMode, Helpers::EAutoZoomMode eAutoZoomModeFullScreen,
 		bool bShowNavPanel, bool bShowFileName, bool bShowFileInfo,
 		Helpers::ETransitionEffect eSlideShowTransitionEffect);
@@ -192,9 +197,11 @@ private:
 	double m_dMagentaGreen;
 	double m_dYellowBlue;
 	bool m_bHQRS;
+	bool m_bDefaultSelectionMode;
 	bool m_bShowFileName;
 	bool m_bShowFileInfo;
 	bool m_bShowEXIFDateInTitle;
+	bool m_bShowFullPathInTitle;
 	bool m_bShowHistogram;
 	bool m_bShowJPEGComments;
 	bool m_bShowNavPanel;
@@ -210,7 +217,7 @@ private:
 	int m_nNumCores;
 	EFilterType m_eDownsamplingFilter;
 	Helpers::ESorting m_eSorting;
-	bool m_bIsSortedUpcounting;
+	bool m_bIsSortedAscending;
 	Helpers::ENavigationMode m_eNavigation;
 	bool m_bNavigateMouseWheel;
 	double m_dMouseWheelZoomSpeed;
@@ -243,7 +250,7 @@ private:
 	bool m_bSaveWithoutPrompt;
 	Helpers::EDeleteConfirmation m_eDeleteConfirmation;
 	bool m_bAllowFileDeletion;
-	bool m_bTrimWithoutPromptLosslessJPEG;
+	bool m_bCropWithoutPromptLosslessJPEG;
 	bool m_bExchangeXButtons;
 	bool m_bAutoRotateEXIF;
 	bool m_bUseEmbeddedColorProfiles;
@@ -279,13 +286,16 @@ private:
 	double m_dDefaultPrintWidth;
 	Helpers::EMeasureUnits m_eMeasureUnit;
 	CSize m_minimalWindowSize;
-	double m_minimalDisplayTime;
+	int m_minimalDisplayTime;
 	CSize m_userCropAspectRatio;
 	CString m_sWallpaperPath;
 	bool m_bSkipFileOpenDialogOnStartup;
 	Helpers::EIniEditor  m_eIniEditor;
 	CString m_sIniEditor;
 	CString m_sGPSMapProvider;
+	bool m_bFlashWindowAlert;
+	bool m_bBeepSoundAlert;
+	int m_zoomPauseFactor;
 
 	std::list<CUserCommand*> m_userCommands;
 	std::list<CUserCommand*> m_openWithCommands;

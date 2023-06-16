@@ -16,8 +16,8 @@ static CString FormatHint(LPCTSTR format, LPCTSTR argument) {
 }
 
 static bool ShowRegistryError(HWND hWnd, LPCTSTR registryKey, LPCTSTR fileEndings) {
-	CString sError = CNLS::GetString(_T("Error while writing the following registry key:"));
-	sError += _T("\n");
+	CString sError = CNLS::GetString(_T("Error while writing the following registry key"));
+	sError += _T(":\n");
 	sError += registryKey;
 	if (fileEndings != NULL) {
 		sError += fileEndings;
@@ -130,13 +130,13 @@ LRESULT CFileExtensionsDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*
 	if (endingsCantUnregister.size() > 0) {
 		CString sText = CNLS::GetString(_T("The following file extensions cannot be unregistered because they have been registered in the 'local machine' registry area."));
 		sText += _T("\n");
-		sText += CNLS::GetString(_T("Registering or unregistering file extensions in this registry area requires administration privileges and cannot be done in JPEGView."));
+		sText += CNLS::GetString(_T("Registering or unregistering file extensions in this registry area requires administrator privileges and cannot be done in JPEGView."));
 		for (std::list<CString>::const_iterator it = endingsCantUnregister.begin(); it != endingsCantUnregister.end(); ++it) {
 			sText += _T("\n");
 			sText += *it;
 		}
 		sText += _T("\n");
-		sText += CNLS::GetString(_T("Press 'OK' to continue with registration or 'Cancel' to not modify any registrations."));
+		sText += CNLS::GetString(_T("Press 'OK' to continue with registration or 'Cancel' to abort all registrations."));
 		if (MessageBox(sText, CNLS::GetString(_T("Unregistering not possible")), MB_OKCANCEL | MB_ICONINFORMATION) == IDCANCEL) {
 			return 0;
 		}
@@ -218,11 +218,11 @@ LRESULT CFileExtensionsDlg::OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*
 		msg += _T("\n");
 		msg += sProtectedByWindowsEndings;
 		msg += _T("\n\n");
-		msg += CNLS::GetString(_T("Windows 8 blocks JPEGView from changing the default program for these file endings."));
+		msg += CNLS::GetString(_T("Windows 8 (and above) blocks JPEGView from changing the default program for these file extensions."));
 		msg += _T("\n");
 		msg += CNLS::GetString(_T("Use the 'Default Programs' configuration dialog from the operating system instead."));
 		msg += _T("\n");
-		msg += CNLS::GetString(_T("Alternatively, right click an image file of the given type in Windows Explorer and select 'Open with... > Choose default program'"));
+		msg += CNLS::GetString(_T("Alternatively, right-click an image file of the given type in Windows Explorer and select 'Open with... > Choose default program'"));
 		::MessageBox(m_hWnd, msg, CNLS::GetString(_T("Warning")), MB_OK | MB_ICONWARNING);
 	}
 
@@ -286,6 +286,11 @@ void CFileExtensionsDlg::FillFileExtensionsList() {
 	InsertExtension(_T("*.gif"), FormatHint(CNLS::GetString(_T("%s images")), _T("GIF")));
 	InsertExtension(_T("*.tga"), FormatHint(CNLS::GetString(_T("%s images")), _T("TGA")));
 	InsertExtension(_T("*.webp"), FormatHint(CNLS::GetString(_T("%s images")), _T("Google WEBP")));
+	InsertExtension(_T("*.jxl"), FormatHint(CNLS::GetString(_T("%s images")), _T("JPEG XL")));
+	InsertExtension(_T("*.avif"), FormatHint(CNLS::GetString(_T("%s images")), _T("AV1 Image File")));
+	InsertExtension(_T("*.heif"), FormatHint(CNLS::GetString(_T("%s images")), _T("High Efficiency Image File")));
+	InsertExtension(_T("*.heic"), FormatHint(CNLS::GetString(_T("%s images")), _T("High Efficiency Image Container")));
+	InsertExtension(_T("*.qoi"), FormatHint(CNLS::GetString(_T("%s images")), _T("Quite OK Image")));
 	InsertExtensions(CSettingsProvider::This().FilesProcessedByWIC(), CNLS::GetString(_T("%s images (processed by Window Imaging Component - WIC)")));
 	InsertExtensions(CSettingsProvider::This().FileEndingsRAW(), CNLS::GetString(_T("%s camera raw images (embedded JPEGs only)")));
 }

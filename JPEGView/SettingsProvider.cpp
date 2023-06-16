@@ -113,6 +113,7 @@ CSettingsProvider::CSettingsProvider(void) {
 	m_bAutoFullScreen = GetString(_T("ShowFullScreen"), _T("")).CompareNoCase(_T("auto")) == 0;
 	m_bShowFullScreen = m_bAutoFullScreen ? true : GetBool(_T("ShowFullScreen"), true);
 	m_bShowEXIFDateInTitle = GetBool(_T("ShowEXIFDateInTitle"), true);
+	m_bShowFullPathInTitle = GetBool(_T("ShowFilePathInTitle"), false);
 	m_bShowHistogram = GetBool(_T("ShowHistogram"), false);
 	m_bShowJPEGComments = GetBool(_T("ShowJPEGComments"), true);
 	m_bShowBottomPanel = GetBool(_T("ShowBottomPanel"), true);
@@ -179,8 +180,11 @@ CSettingsProvider::CSettingsProvider(void) {
 	m_sFileEndingsRAW = GetString(_T("FileEndingsRAW"), _T("*.pef;*.dng;*.crw;*.nef;*.cr2;*.mrw;*.rw2;*.orf;*.x3f;*.arw;*.kdc;*.nrw;*.dcr;*.sr2;*.raf"));
 	m_bCreateParamDBEntryOnSave = GetBool(_T("CreateParamDBEntryOnSave"), true);
 	m_bWrapAroundFolder = GetBool(_T("WrapAroundFolder"), true);
-	m_bSaveWithoutPrompt = GetBool(_T("OverrideOriginalFileWithoutSaveDialog"), false);
-	m_bTrimWithoutPromptLosslessJPEG = GetBool(_T("TrimWithoutPromptLosslessJPEG"), false);
+	m_bFlashWindowAlert = GetBool(_T("FlashWindowAlert"), true);
+	m_bBeepSoundAlert = GetBool(_T("BeepSoundAlert"), false);  // don't make it default on... too much sound feedback is pretty annoying
+	m_zoomPauseFactor = GetInt(_T("ZoomPausePercent"), 100, 0, 6553500) / 100.0;  // can't have a % larger than the MAX_IMAGE_DIMENSION %, and convert to a scale factor (double/double division) only once
+	m_bSaveWithoutPrompt = GetBool(_T("OverwriteOriginalFileWithoutSaveDialog"), false);
+	m_bCropWithoutPromptLosslessJPEG = GetBool(_T("CropWithoutPromptLosslessJPEG"), false);
 	m_bAllowFileDeletion = GetBool(_T("AllowFileDeletion"), true);
 	m_bExchangeXButtons = GetBool(_T("ExchangeXButtons"), true);
 	m_bAutoRotateEXIF = GetBool(_T("AutoRotateEXIF"), true);
@@ -273,7 +277,7 @@ CSettingsProvider::CSettingsProvider(void) {
 	}
 
 	m_minimalWindowSize = GetSize(_T("MinimalWindowSize"), CSize(320, 240));
-	m_minimalDisplayTime = GetDouble(_T("MinimalDisplayTime"), 0.0, 0, 1000);
+	m_minimalDisplayTime = GetInt(_T("MinimalDisplayTime"), 0, 0, 1000);
 	m_userCropAspectRatio = GetSize(_T("UserCropAspectRatio"), CSize(1, 1));
 	if (m_userCropAspectRatio.cx <= 0 || m_userCropAspectRatio.cy <= 0) {
 		m_userCropAspectRatio = CSize(1, 1);
@@ -295,7 +299,7 @@ CSettingsProvider::CSettingsProvider(void) {
 
 	m_bSkipFileOpenDialogOnStartup = GetBool(_T("SkipFileOpenDialogOnStartup"), false);
 
-	m_sLanguage = GetString(_T("Language"), _T("auto")); 
+	m_sLanguage = GetString(_T("Language"), _T("auto"));
 	m_sGPSMapProvider = GetString(_T("GPSMapProvider"), _T("https://opentopomap.org/#marker=15/{lat}/{lng}"));
 
 	m_sACCExclude = GetString(_T("ACCExclude"), _T("")); 
@@ -427,12 +431,13 @@ void CSettingsProvider::ReadWriteableINISettings() {
 	else {
 		m_eSorting = Helpers::FS_LastModTime;
 	}
-	m_bIsSortedUpcounting = GetBool(_T("IsSortedUpcounting"), true);
+	m_bIsSortedAscending = GetBool(_T("FileSortAscending"), true);
 	m_eAutoZoomMode = GetAutoZoomMode(_T("AutoZoomMode"), Helpers::ZM_FitToScreenNoZoom);
 	m_eAutoZoomModeFullscreen = GetAutoZoomMode(_T("AutoZoomModeFullscreen"), m_eAutoZoomMode);
 	m_bShowNavPanel = GetBool(_T("ShowNavPanel"), true);
 
 	m_bHQRS = GetBool(_T("HighQualityResampling"), true);
+	m_bDefaultSelectionMode = GetBool(_T("DefaultSelectionMode"), true);
 	m_bShowFileName = GetBool(_T("ShowFileName"), false);
 	m_bShowFileInfo = GetBool(_T("ShowFileInfo"), false);
 	m_bKeepParams = GetBool(_T("KeepParameters"), false);
@@ -441,7 +446,7 @@ void CSettingsProvider::ReadWriteableINISettings() {
 
 void CSettingsProvider::SaveSettings(const CImageProcessingParams& procParams, 
 									 EProcessingFlags eProcFlags,
-									 Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedUpcounting,
+									 Helpers::ENavigationMode eNavigationMode, Helpers::ESorting eFileSorting, bool isSortedAscending,
 									 Helpers::EAutoZoomMode eAutoZoomMode, Helpers::EAutoZoomMode eAutoZoomModeFullScreen,
 									 bool bShowNavPanel, bool bShowFileName, bool bShowFileInfo,
 									 Helpers::ETransitionEffect eSlideShowTransitionEffect) {
@@ -483,7 +488,7 @@ void CSettingsProvider::SaveSettings(const CImageProcessingParams& procParams,
 	}
 	WriteString(_T("FileDisplayOrder"), sSorting);
 
-	WriteBool(_T("IsSortedUpcounting"), isSortedUpcounting);
+	WriteBool(_T("FileSortAscending"), isSortedAscending);
 
 	WriteString(_T("AutoZoomMode"), GetAutoZoomModeString(eAutoZoomMode));
 	WriteString(_T("AutoZoomModeFullscreen"), GetAutoZoomModeString(eAutoZoomModeFullScreen));
@@ -707,6 +712,7 @@ void CSettingsProvider::ReadIniFile(LPCTSTR fileName, IniHashMap* keyMap, TCHAR*
 
 	int index = 0;
 	LPTSTR current = pBuffer;
+	// TODO not sure why the original author manually parses the file instead of using GetPrivateProfileString/Int APIs
 	while (*current != 0) {
 		while (*current != 0 && _istspace(*current)) current++;
 		LPCTSTR key = current;
