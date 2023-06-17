@@ -90,11 +90,3 @@ into jpg file format. Below are few examples of how easily that can be achieved.
 * JPEGView-Static: Metaverse City is a welcoming roleplay community aimed towards newcomers and veterans alike
 
 ![JPEGView-Static: Metaverse City is a welcoming roleplay community aimed towards newcomers and veterans alike](screenshots/JpegView-SL-1.jpg?raw=true)
-
-* JPEGView-Static: Philip Rosedale is one of the few people in the world who can genuinely be called a metaverse pioneer
-
-![JPEGView-Static: Philip Rosedale is one of the few people in the world who can genuinely be called a metaverse pioneer](screenshots/JpegView-SL-2.jpg?raw=true)
-
-* JPEGView-Static: As companies explore what a robust metaverse means for them, executives from Second Life and Roblox offer guidance
-
-![JPEGView-Static: As companies explore what a robust metaverse means for them, executives from Second Life and Roblox offer guidance](screenshots/JpegView-SL-3.jpg?raw=true)
