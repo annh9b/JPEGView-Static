@@ -51,15 +51,15 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 #ifdef _DEBUG
 	// the debug version does not require localized title strings
 #ifdef _WIN64
-	LPCTSTR sTitle = _T("About JPEGView (Debug version, 64-bit)...");
+	LPCTSTR sTitle = _T("About JPEGView-Static (Debug version, 64-bit)...");
 #else
-	LPCTSTR sTitle = _T("About JPEGView (Debug version, 32-bit)...");
+	LPCTSTR sTitle = _T("About JPEGView-Static (Debug version, 32-bit)...");
 #endif
 #else
 #ifdef _WIN64
-	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView (64-bit version)..."));
+	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView-Static (64-bit version)..."));
 #else
-	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView (32-bit version)..."));
+	LPCTSTR sTitle = CNLS::GetString(_T("About JPEGView-Static (32-bit version)..."));
 #endif
 #endif
 	this->SetWindowText(sTitle);
@@ -71,7 +71,7 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 	m_btnClose.Attach(GetDlgItem(IDC_CLOSE));
 	m_lblIcon.Attach(GetDlgItem(IDC_ICONJPEGVIEW));
 
-	m_lblVersion.SetWindowText(CString(_T("JPEGView ")) + JPEGVIEW_VERSION);
+	m_lblVersion.SetWindowText(CString(_T("JPEGView-Static ")) + JPEGVIEW_VERSION_PRINT);
 
 	m_lblSIMD.SetWindowText(CString(CNLS::GetString(_T("SIMD mode used"))) + _T(": ") + GetSIMDModeString());
 	TCHAR sNumCores[16];
@@ -81,10 +81,10 @@ LRESULT CAboutDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPara
 
 	m_richEdit.SetBackgroundColor(::GetSysColor(COLOR_3DFACE));
 	m_richEdit.SetAutoURLDetect(TRUE);
-	m_richEdit.SetWindowText(CString(CNLS::GetString(_T("Licensed under the GNU general public license (GPL), see readme file for details"))) + 
-		_T(":\nfile://") + GetReadmeFileName() + _T("\n") + 
+	m_richEdit.SetWindowText(CString(CNLS::GetString(_T("Licensed under the GNU General Public License (GPLv3)"))) + 
+		_T("\n\n") + 
 		CNLS::GetString(_T("Project home page")) + 
-		_T(":\nhttps://github.com/sylikc/jpegview/\n"));
+		_T(":\nhttps://github.com/annh9b/JPEGView-Static\n"));
 	m_richEdit.SetEventMask(ENM_LINK);
 
 	HICON hIconLarge = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME),

@@ -51,7 +51,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\JPEGView.ico"
+IDR_MAINFRAME           ICON                    "res\\JPEGView-Static.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -114,11 +114,11 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "",IDC_CLOSE,133,120,104,15
     LTEXT           "",IDC_JPEGVIEW,64,7,163,9,NOT WS_GROUP
-    LTEXT           "Copyright 2006-2018 David Kleiner\nCopyright 2020-2023 Kevin M (sylikc)",IDC_COPYRIGHT,64,17,163,18,NOT WS_GROUP
+    LTEXT           "Copyright 2006-2018 David Kleiner\nCopyright 2020-2023 Kevin M (sylikc)\nCopyright 2022-2023 Ann Hatt (annh9b)",IDC_COPYRIGHT,64,17,163,25,NOT WS_GROUP
     ICON            IDR_MAINFRAME,IDC_ICONJPEGVIEW,12,6,64,64
     CONTROL         "",IDC_LICENSE,"RichEdit20W",WS_TABSTOP | 0x804,64,68,168,42
-    LTEXT           "",IDC_SIMDMODE,64,36,163,10,NOT WS_GROUP
-    LTEXT           "",IDC_NUMCORES,64,49,163,10,NOT WS_GROUP
+    LTEXT           "",IDC_SIMDMODE,64,48,163,10,NOT WS_GROUP
+    LTEXT           "",IDC_NUMCORES,64,56,163,10,NOT WS_GROUP
 END
 
 IDD_SET_CROP_SIZE DIALOGEX 8, 7, 159, 101
@@ -449,7 +449,7 @@ BEGIN
             MENUITEM "_empty_",                     IDM_ABOUT
         END
         MENUITEM SEPARATOR
-        MENUITEM "About JPEGView...",           IDM_ABOUT
+        MENUITEM "About JPEGView-Static...",           IDM_ABOUT
         MENUITEM SEPARATOR
         MENUITEM "Exit\t0xffff",                IDM_EXIT
     END
@@ -513,13 +513,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Kevin M (sylikc)"
-            VALUE "FileDescription", "JPEGView"
+            VALUE "CompanyName", "Ann Hatt (annh9b)"
+            VALUE "FileDescription", "JPEGView-Static"
             VALUE "FileVersion", "1.2.45.0"
-            VALUE "InternalName", "JPEGView"
-            VALUE "LegalCopyright", "Copyright 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
-            VALUE "OriginalFilename", "JPEGView.exe"
-            VALUE "ProductName", "JPEGView Application"
+            VALUE "InternalName", "JPEGView-Static"
+            VALUE "LegalCopyright", "Copyright 2022-2023 Ann Hatt (annh9b), 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
+            VALUE "OriginalFilename", "JPEGView-Static.exe"
+            VALUE "ProductName", "JPEGView-Static Application"
             VALUE "ProductVersion", "1.2.45.0"
         END
     END
