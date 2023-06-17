@@ -63,6 +63,20 @@ Basic on-the-fly image processing is provided - allowing adjusting typical param
 * Basic image processing tools can be applied realtime during viewing
 * Movie/Slideshow mode - to play folder of JPEGs as movie
 
+### New Features
+
+* Added support for ICC Color Profiles embedded in WebP, JPEG XL images.
+
+## Localization
+
+* DISABLED. We consider JPEGView-Static as a professional app, so English only.
+
+Also this approach makes all the GUI/Help terms to be named in an unified way.
+
+## System Requirements
+
+* Only 64-bit version is supported to avoid legacy garbage: Windows 7/8/10/11 64-bit or later
+
 ## Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life)
 
 JPEGView-Static appears to be extremely useful in converting [WebP](https://en.wikipedia.org/wiki/WebP) files to jpg images
