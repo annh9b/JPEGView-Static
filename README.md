@@ -1,5 +1,23 @@
 # JPEGView-Static - Statically Linked Image Viewer and Editor In Exactly One Executable
 
+> Updated Jul 13 2023. Added file list for the latest release archive.
+
+**[Download](https://github.com/annh9b/JPEGView-Static/releases/download/v1.2.45.0/JPEGView-Static-x64-v1.2.45.0.zip) the latest release right now!**
+
+```
+Archive:  JPEGView-Static-x64-v1.2.45.0.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2023-06-17 02:36   JPEGView-Static-x64-v1.2.45.0/
+  3418112  2023-06-17 02:36   JPEGView-Static-x64-v1.2.45.0/JPEGView-Static.exe
+    31896  2023-06-14 03:40   JPEGView-Static-x64-v1.2.45.0/JPEGView.ini
+    30531  2023-06-14 03:40   JPEGView-Static-x64-v1.2.45.0/JPEGView.ini.tpl
+     3698  2023-06-14 03:40   JPEGView-Static-x64-v1.2.45.0/KeyMap.txt.default
+     3995  2023-06-14 03:40   JPEGView-Static-x64-v1.2.45.0/symbols.km
+---------                     -------
+  3488232                     6 files
+```
+
 Second life for famous [JPEGView from SourceForge.net (last updated 2018-03-10, currently abandoned)](https://sourceforge.net/projects/jpegview/).
 
 JPEGView-Static is a fast and tiny statically linked viewer for PC/Web Images and Camera Raw Formats with a minimalist GUI and base image editing
