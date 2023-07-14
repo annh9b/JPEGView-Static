@@ -108,3 +108,6 @@ into jpg file format. Below are few examples of how easily that can be achieved.
 * JPEGView-Static: Metaverse City is a welcoming roleplay community aimed towards newcomers and veterans alike
 
 ![JPEGView-Static: Metaverse City is a welcoming roleplay community aimed towards newcomers and veterans alike](screenshots/JpegView-SL-1.jpg?raw=true)
+
+There are much more screenshots on the external sites.
+
