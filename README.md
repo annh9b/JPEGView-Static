@@ -1,6 +1,6 @@
 # JPEGView-Static - Statically Linked Image Viewer and Editor In Exactly One Executable
 
-> Updated Jan 10 2024. Added file list for the latest release archive.
+> Updated May 17 2024. Added file list for the latest release archive.
 
 **[Download](https://github.com/annh9b/JPEGView-Static/releases/download/v1.2.45.0/JPEGView-Static-x64-v1.2.45.0.zip) the latest release right now!**
 
@@ -29,7 +29,7 @@ but also from [JPEGView at GitHub user sylikc](https://github.com/sylikc/jpegvie
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Jan 10 2024. JPEGView-Static is the new project name and purpose: all the image viewing stuff needed
+> Updated May 17 2024. JPEGView-Static is the new project name and purpose: all the image viewing stuff needed
 in exactly one statically linked executable.
 
 ## Full list of supported formats
