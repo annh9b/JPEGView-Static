@@ -62,7 +62,7 @@ This approach makes all the GUI/Help terms to be named in a unified way to refer
 
 ## Source code
 
-* GitHub: [jpegview-static-post2024-vs2019-x64](https://github.com/annh9b/JPEGView-Static/jpegview-static-post2024-vs2019-x64/)
+* GitHub: [jpegview-static-post2024-vs2019-x64](https://github.com/annh9b/JPEGView-Static/tree/main/jpegview-static-post2024-vs2019-x64/)
 * GitLab: [jpegview-static-post2024-vs2019-x64](https://gitlab.com/annh9b1/JPEGView-Static/-/tree/main/jpegview-static-post2024-vs2019-x64/)
 
 --
