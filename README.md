@@ -1,8 +1,75 @@
-# JPEGView-Static - Statically Linked Image Viewer and Editor In Exactly One Executable
+# JPEGView-Static: a 64-bit statically linked image viewer and editor without MSVC runtime dependencies
 
-> Updated May 17 2024. Added file list for the latest release archive.
+![JPEGView-Static icon](favicon_large.png?raw=true)
 
-**[Download](https://github.com/annh9b/JPEGView-Static/releases/download/v1.2.45.0/JPEGView-Static-x64-v1.2.45.0.zip) the latest release right now!**
+> Updated Jul 02 2024. The very first release of a new concept image viewer and editor.
+
+## The concept
+
+Every month I get a fresh code from [Sylikc's JpegView](https://github.com/sylikc/jpegview) in order to eliminate
+rarely used image formats and build modern 64-bit statically linked executables and dlls without MSVC runtime dependencies
+to focus on all the important image formats, camera raw workflow, and color profiles, and blur the garbage, legacy and experimental stuff.
+
+## Supported image formats
+
+### PC/Web Images
+
+* Popular: JPEG, GIF
+* Lossless: BMP, PNG, TIFF
+* Web: WEBP
+
+All the formats above are supported by corresponding statically linked libraries right into JPEGView-Static executable.
+
+### Camera RAW formats
+
+* Adobe (DNG)
+* Canon (CRW, CR2)
+* Nikon (NEF, NRW)
+* Sony (ARW, SR2)
+* Olympus (ORF)
+* Panasonic (RW2)
+* Fujifilm (RAF)
+* Sigma (X3F)
+* Pentax (PEF)
+* Minolta (MRW)
+* Kodak (KDC, DCR)
+
+Supported by [libraw.dll](https://github.com/LibRaw/LibRaw) library that is statically linked without MSVC runtime dependencies, but set separate.
+
+###  Windows Imaging Component (WIC)
+
+Many additional formats are supported via Windows Imaging Component (WICLoader.dll, a part of this project) that is statically linked without MSVC runtime dependencies, but set separate.
+
+## Color profiles
+
+Supported by [lcms2.dll](https://github.com/mm2/Little-CMS), statically linked without MSVC runtime dependencies, but set separate.
+
+**[Download Windows installer](https://xxx) of the latest stable release right now!**
+
+The program has built-in updater service under construction that may perform additional scientific tasks when your CPU is idle with very tiny CPU and Internet usage.
+Each JPEGView-Static version has an additional installer without updater service, if you don't want it, just reinstall the app:
+[Download Windows installer without built-in updater service](https://xxx) of the latest stable release.
+
+## Localization
+
+* ENGLISH ONLY.
+
+This approach makes all the GUI/Help terms to be named in a unified way to refer to them in FAQ.
+
+## System Requirements
+
+* Only 64-bit version is supported to avoid legacy garbage: Windows 7/8/10/11 or later.
+
+## Source code
+
+* GitHub: [jpegview-static-post2024-vs2019-x64](https://github.com/annh9b/JPEGView-Static/jpegview-static-post2024-vs2019-x64/)
+* GitLab: [jpegview-static-post2024-vs2019-x64](https://gitlab.com/annh9b1/JPEGView-Static/-/tree/main/jpegview-static-post2024-vs2019-x64/)
+
+--
+
+## Archive
+
+[Download](https://github.com/annh9b/JPEGView-Static/releases/download/v1.2.45.0/JPEGView-Static-x64-v1.2.45.0.zip) the legacy release.
 
 ```
 Archive:  JPEGView-Static-x64-v1.2.45.0.zip
@@ -27,20 +94,15 @@ exactly in one executable. No installer, no collateral files, just copy-paste an
 This fork incorporates changes not only from original [JPEGView from SourceForge.net](https://sourceforge.net/projects/jpegview/),
 but also from [JPEGView at GitHub user sylikc](https://github.com/sylikc/jpegview).
 
-![JPEGView-Static icon](favicon_large.png?raw=true)
+### Full list of supported formats
 
-> Updated May 17 2024. JPEGView-Static is the new project name and purpose: all the image viewing stuff needed
-in exactly one statically linked executable.
-
-## Full list of supported formats
-
-### PC/Web Images
+#### PC/Web Images
 
 * Popular: JPEG, GIF
 * Lossless: BMP, PNG, TIFF
 * Web: WEBP
 
-### Camera RAW formats
+#### Camera RAW formats
 
 * Adobe (DNG)
 * Canon (CRW, CR2)
@@ -54,16 +116,16 @@ in exactly one statically linked executable.
 * Minolta (MRW)
 * Kodak (KDC, DCR)
 
-###  Windows Imaging Component (WIC)
+####  Windows Imaging Component (WIC)
 
 Many additional formats are supported via Windows Imaging Component (WIC) that is statically linked into viewer executable as well.
 
-### Temporarily disabled formats
+#### Temporarily disabled formats
 
 * XL, HEIF/HEIC, AVIF
 * TGA, WDP, HDP, JXR
 
-## Basic Image Editor
+### Basic Image Editor
 
 Basic on-the-fly image processing is provided - allowing adjusting typical parameters:
 
@@ -74,28 +136,28 @@ Basic on-the-fly image processing is provided - allowing adjusting typical param
 * Brightness/Contrast
 * Local Under-Exposure/Over-Exposure
 
-## Other Features
+### Other Features
 
 * Small and fast, uses AVX2/SSE2 and up to 4 CPU cores
 * High quality resampling filter, preserving sharpness of images
 * Basic image processing tools can be applied realtime during viewing
 * Movie/Slideshow mode - to play folder of JPEGs as movie
 
-### New Features
+#### New Features
 
 * Added support for ICC Color Profiles embedded in WebP, JPEG XL images.
 
-## Localization
+### Localization
 
 * DISABLED. We consider JPEGView-Static as a professional app, so English only.
 
 Also this approach makes all the GUI/Help terms to be named in an unified way.
 
-## System Requirements
+### System Requirements
 
 * Only 64-bit version is supported to avoid legacy garbage: Windows 7/8/10/11 64-bit or later
 
-## Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life)
+### Collaboration with [Second Life Metaverse](https://en.wikipedia.org/wiki/Second_Life)
 
 JPEGView-Static appears to be extremely useful in converting [WebP](https://en.wikipedia.org/wiki/WebP) files to jpg images
 since JPEGView-Static incorporates a [Google's WebP library](https://chromium.googlesource.com/webm/libwebp).
