@@ -2,7 +2,9 @@
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Jul 02 2024. The very first release of a new concept image viewer and editor.
+> Updated Jul 03 2024. The very first release of a new concept image viewer and editor.
+
+**[Download Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1.exe) of the latest stable release right now!**
 
 ## The concept
 
@@ -44,11 +46,17 @@ Many additional formats are supported via Windows Imaging Component (WICLoader.d
 
 Supported by [lcms2.dll](https://github.com/mm2/Little-CMS), statically linked without MSVC runtime dependencies, but set separate.
 
-**[Download Windows installer](https://xxx) of the latest stable release right now!**
+## Additional features
 
 The program has built-in updater service under construction that may perform additional scientific tasks when your CPU is idle with very tiny CPU and Internet usage.
 Each JPEGView-Static version has an additional installer without updater service, if you don't want it, just reinstall the app:
-[Download Windows installer without built-in updater service](https://xxx) of the latest stable release.
+[Download Windows installer without built-in updater service](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1-woupds.exe)
+of the latest stable release. Note, in this case (and only in this case) you must uninstall JPEGView-Static with updater service completely, and all your settings will be lost,
+so make a backup copy of C:\Users\&lt;your_user_name&gt;\AppData\Roaming\JPEGView\ folder.
+
+if you want to switch back to the version with updater service, you don't need to uninstall the app completely first.
+Just run the installer and it will copy all the new files, preserving your program settings. This advantage will take place for upcoming new versions:
+you just run the installer for new version, and all your settings will be preserved.
 
 ## Localization
 
