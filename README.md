@@ -52,7 +52,7 @@ The program has built-in updater service under construction that may perform add
 Each JPEGView-Static version has an additional installer without updater service, if you don't want it, just reinstall the app:
 [Download Windows installer without built-in updater service](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1-woupds.exe)
 of the latest stable release. Note, in this case (and only in this case) you must uninstall JPEGView-Static with updater service completely, and all your settings will be lost,
-so make a backup copy of C:\Users\&lt;your_user_name&gt;\AppData\Roaming\JPEGView\ folder.
+so make a backup copy of C:\Users\\&lt;your_user_name&gt;\AppData\Roaming\JPEGView\ folder.
 
 if you want to switch back to the version with updater service, you don't need to uninstall the app completely first.
 Just run the installer and it will copy all the new files, preserving your program settings. This advantage will take place for upcoming new versions:
