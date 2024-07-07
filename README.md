@@ -2,7 +2,7 @@
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Jul 03 2024. The very first release of a new concept image viewer and editor.
+> Updated Jul 07 2024. The very first release of a new concept image viewer and editor. Fixed [issue 12](https://github.com/annh9b/JPEGView-Static/issues/12).
 
 **[Download Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1.exe) of the latest stable release right now!**
 

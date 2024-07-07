@@ -11,3 +11,4 @@ Source: ".\jpegview-static-post2024-vs2019-x64\src\JPEGView\bin\x64\Release\KeyM
 Source: ".\jpegview-static-post2024-vs2019-x64\src\JPEGView\bin\x64\Release\KeyMap-README.html"; DestDir: "{app}\JPEGView-Static"; Flags: sortfilesbyextension ignoreversion;
 Source: ".\jpegview-static-post2024-vs2019-x64\src\JPEGView\bin\x64\Release\readme.html"; DestDir: "{app}\JPEGView-Static"; Flags: sortfilesbyextension ignoreversion;
 Source: ".\jpegview-static-post2024-vs2019-x64\src\JPEGView\bin\x64\Release\strings.txt"; DestDir: "{app}\JPEGView-Static"; Flags: sortfilesbyextension ignoreversion;
+Source: ".\jpegview-static-post2024-vs2019-x64\src\JPEGView\bin\x64\Release\symbols.km"; DestDir: "{app}\JPEGView-Static"; Flags: sortfilesbyextension ignoreversion;
