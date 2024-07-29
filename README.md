@@ -2,9 +2,9 @@
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Jul 07 2024. The very first release of a new concept image viewer and editor. Fixed [issue 12](https://github.com/annh9b/JPEGView-Static/issues/12).
+> Updated Jul 29 2024. Version 1.3.46.2 has been released. Minor bug fixes including [issue 12](https://github.com/annh9b/JPEGView-Static/issues/12).
 
-**[Download Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1.exe) of the latest stable release right now!**
+**[Download Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.2.exe) of the latest stable release right now!**
 
 ## The concept
 
@@ -50,7 +50,7 @@ Supported by [lcms2.dll](https://github.com/mm2/Little-CMS), statically linked w
 
 The program has built-in updater service under construction that may perform additional scientific tasks when your CPU is idle with very tiny CPU and Internet usage.
 Each JPEGView-Static version has an additional installer without updater service, if you don't want it, just reinstall the app:
-[Download Windows installer without built-in updater service](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.1-woupds.exe)
+[Download Windows installer without built-in updater service](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.2-woups.exe)
 of the latest stable release. Note, in this case (and only in this case) you must uninstall JPEGView-Static with updater service completely, and all your settings will be lost,
 so make a backup copy of C:\Users\\&lt;your_user_name&gt;\AppData\Roaming\JPEGView\ folder.
 

@@ -497,8 +497,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,3,46,1
- PRODUCTVERSION 1,3,46,1
+ FILEVERSION 1,3,46,2
+ PRODUCTVERSION 1,3,46,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -515,12 +515,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Ann Hatt"
             VALUE "FileDescription", "JPEGView-Static"
-            VALUE "FileVersion", "1.3.46.1"
+            VALUE "FileVersion", "1.3.46.2"
             VALUE "InternalName", "JPEGView-Static"
             VALUE "LegalCopyright", "Copyright 2024 Ann Hatt, 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
             VALUE "OriginalFilename", "JPEGView-Static.exe"
             VALUE "ProductName", "JPEGView-Static Application"
-            VALUE "ProductVersion", "1.3.46.1-VS2019-x64-MT"
+            VALUE "ProductVersion", "1.3.46.2-VS2019-x64-MT"
         END
     END
     BLOCK "VarFileInfo"
