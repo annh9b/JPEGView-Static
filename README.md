@@ -2,9 +2,11 @@
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Aug 02 2024. Version 1.3.46.2 has been released. Minor bug fixes including [issue 12](https://github.com/annh9b/JPEGView-Static/issues/12).
+> Updated Dec 07 2024. Version 1.3.46.2 has been released. Minor bug fixes including [issue 12](https://github.com/annh9b/JPEGView-Static/issues/12).
 
 **[Download Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/Setup-JPEGView-Static-64-bit-v1.3.46.2.exe) of the latest stable release right now!**
+
+I plan to add a lightweight local-running AI image super-resolution feature to the text release!
 
 ## The concept
 
