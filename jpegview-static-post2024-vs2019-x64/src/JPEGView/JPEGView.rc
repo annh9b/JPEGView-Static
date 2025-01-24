@@ -114,7 +114,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "",IDC_CLOSE,133,120,104,15
     LTEXT           "",IDC_JPEGVIEW,64,7,163,9,NOT WS_GROUP
-    LTEXT           "Copyright 2024 Ann Hatt\nCopyright 2020-2023 Kevin M (sylikc)\nCopyright 2006-2018 David Kleiner",IDC_COPYRIGHT,64,17,163,25,NOT WS_GROUP
+    LTEXT           "Copyright 2024-2025 JPEGView-Static\nCopyright 2020-2023 Kevin M (sylikc)\nCopyright 2006-2018 David Kleiner",IDC_COPYRIGHT,64,17,163,25,NOT WS_GROUP
     ICON            IDR_MAINFRAME,IDC_ICONJPEGVIEW,12,6,64,64
     CONTROL         "",IDC_LICENSE,"RichEdit20W",WS_TABSTOP | 0x804,64,68,168,42
     LTEXT           "",IDC_SIMDMODE,64,47,163,10,NOT WS_GROUP
@@ -497,8 +497,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,3,46,2
- PRODUCTVERSION 1,3,46,2
+ FILEVERSION 1,3,46,3
+ PRODUCTVERSION 1,3,46,3
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -513,14 +513,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Ann Hatt"
-            VALUE "FileDescription", "JPEGView-Static"
-            VALUE "FileVersion", "1.3.46.2"
+            VALUE "CompanyName", "JPEGView-Static"
+            VALUE "FileDescription", "Universal multi-format statically linked 64-bit image viewer"
+            VALUE "FileVersion", "1.3.46.3"
             VALUE "InternalName", "JPEGView-Static"
-            VALUE "LegalCopyright", "Copyright 2024 Ann Hatt, 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
+            VALUE "LegalCopyright", "2024-2025 JPEGView-Static, 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
             VALUE "OriginalFilename", "JPEGView-Static.exe"
             VALUE "ProductName", "JPEGView-Static Application"
-            VALUE "ProductVersion", "1.3.46.2-VS2019-x64-MT"
+            VALUE "ProductVersion", "1.3.46.3-VS2019-x64-MT"
         END
     END
     BLOCK "VarFileInfo"
