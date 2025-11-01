@@ -4,6 +4,8 @@
 
 > Updated Nov 01 2025. Version 1.4.0.0 has been released.
 
+![JPEGView-Static Absolute Image Viewer for Windows thumbnail for social media](repository-open-graph-template-out.png?raw=true)
+
 **[Download MSI Windows installer](https://filedn.com/llBp1EbMQML0Hdv9A9SVo6b/JPEGView-Static/MSI/Installer_JPEGView-Static_v1.4.0.0.msi) of the latest stable release right now!**
 
 I plan to add a video-frame capture from any movie with precise timecode accuracy utilizing FFMPEG libraries.
@@ -22,5 +24,3 @@ but gives the outstanding support of all modern 64-bit Windows systems starting 
 Create an issue to support a format that is still not supported - that is a quest!
 
 **ICC color profiles are supported, so your images will be shown in accurate colors.**
-
-![JPEGView-Static Absolute Image Viewer for Windows thumbnail for social media](repository-open-graph-template-out.png?raw=true)
