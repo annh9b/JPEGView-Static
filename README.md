@@ -22,3 +22,5 @@ but gives the outstanding support of all modern 64-bit Windows systems starting 
 Create an issue to support a format that is still not supported - that is a quest!
 
 **ICC color profiles are supported, so your images will be shown in accurate colors.**
+
+![JPEGView-Static Absolute Image Viewer for Windows thumbnail for social media](repository-open-graph-template-out.png?raw=true)
