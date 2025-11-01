@@ -267,15 +267,6 @@
     <ClCompile Include="WEBPWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PNGWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RAWWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PSDWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicProcessing.h">
@@ -530,18 +521,9 @@
     <ClInclude Include="ICCProfileTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PNGWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RAWWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PSDWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\JPEGView-Static.ico">
+    <None Include="res\JPEGView.ico">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

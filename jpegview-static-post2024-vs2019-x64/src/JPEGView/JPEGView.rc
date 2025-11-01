@@ -213,7 +213,7 @@ BEGIN
     LTEXT           "cm",IDC_PD_CM3,494,210,16,8
     LTEXT           "_Scaling mode:",IDC_PD_SCALING_TITLE,313,233,64,20
     CONTROL         "_Printer driver",IDC_PD_RB_SCALING_DRIVER,"Button",BS_AUTORADIOBUTTON | WS_GROUP,381,232,95,10
-    CONTROL         "JPEGView",IDC_PD_RB_SCALING_JPEGVIEW,"Button",BS_AUTORADIOBUTTON,381,249,49,10
+    CONTROL         "JPEGView-Static",IDC_PD_RB_SCALING_JPEGVIEW,"Button",BS_AUTORADIOBUTTON,381,249,49,10
     LTEXT           "_Alignment:",IDC_PD_ALIGNMENT_TITLE,313,268,63,19
     CONTROL         "",IDC_PD_RB_00,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | WS_GROUP,381,266,19,17
     CONTROL         "",IDC_PD_RB_10,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,400,266,19,17
@@ -497,8 +497,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,3,46,3
- PRODUCTVERSION 1,3,46,3
+ FILEVERSION 1,4,0,0
+ PRODUCTVERSION 1,4,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -515,12 +515,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "JPEGView-Static"
             VALUE "FileDescription", "Universal multi-format statically linked 64-bit image viewer"
-            VALUE "FileVersion", "1.3.46.3"
+            VALUE "FileVersion", "1.4.0.0"
             VALUE "InternalName", "JPEGView-Static"
             VALUE "LegalCopyright", "2024-2025 JPEGView-Static, 2020-2023 Kevin M (sylikc), 2006-2018 David Kleiner"
             VALUE "OriginalFilename", "JPEGView-Static.exe"
             VALUE "ProductName", "JPEGView-Static Application"
-            VALUE "ProductVersion", "1.3.46.3-VS2019-x64-MT"
+            VALUE "ProductVersion", "1.4.0.0-VS2019-x64-MT"
         END
     END
     BLOCK "VarFileInfo"
@@ -537,7 +537,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "JPEGView"
+    IDR_MAINFRAME           "JPEGView-Static"
 END
 
 #endif    // English (United States) resources

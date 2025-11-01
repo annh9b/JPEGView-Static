@@ -4,6 +4,7 @@
 class PngReader
 {
 public:
+#ifndef WINXP
 	// Returns data in 4 byte BGRA
 	static void* ReadImage(int& width,   // width of the image loaded.
 		int& height,  // height of the image loaded.
@@ -18,13 +19,18 @@ public:
 
 	static void DeleteCache();
 
-	// Returns true if PNG is animated, false otherwise
-	static bool IsAnimated(void* buffer, size_t sizebytes);
+	// Returns true if PNG is unsupported by GDI+
+	static bool MustUseLibpng(const void* buffer, size_t sizebytes);
+#endif
+	// Get EXIF Block
+	static void* GetEXIFBlock(void* buffer, size_t sizebytes);
 
+#ifndef WINXP
 private:
 	struct png_cache;
 	static png_cache cache;
 	static bool BeginReading(void* buffer, size_t sizebytes, bool& outOfMemory);
 	static void* ReadNextFrame(void** exif_chunk, unsigned int* exif_size);
 	static void DeleteCacheInternal(bool free_buffer);
+#endif
 };

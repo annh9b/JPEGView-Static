@@ -62,7 +62,7 @@ static bool SetRegistryStringValue(HKEY key, LPCTSTR name, LPCTSTR stringValue) 
 // Checks if JPEGView is registered as application in the registry
 static bool IsRegistered() {
 	HKEY key;
-	if (RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\Applications\\JPEGView.exe\\shell\\open\\command"), 0, KEY_READ, &key) == ERROR_SUCCESS) {
+	if (RegOpenKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\Applications\\JPEGView-Static.exe\\shell\\open\\command"), 0, KEY_READ, &key) == ERROR_SUCCESS) {
 		CString value;
 		bool bOk = GetRegistryStringValue(key, NULL, value);
 		bOk = bOk && Helpers::stristr(value, CSettingsProvider::This().GetEXEPath()) != NULL;
@@ -133,7 +133,7 @@ static bool CheckExtensionRegistered(LPCTSTR sExtension, bool bNewRegistryFormat
 		bool userChoiceExists = GetRegistryStringValue(key, bNewRegistryFormat ? _T("Progid") : _T("Application"), value);
 		bool isRegistered;
 		if (userChoiceExists) {
-			isRegistered = Helpers::stristr(value, _T("JPEGView.exe")) != NULL || CheckJPEGViewIsShellOpenHandler(value);
+			isRegistered = Helpers::stristr(value, _T("JPEGView-Static.exe")) != NULL || CheckJPEGViewIsShellOpenHandler(value);
 		} else {
 			isRegistered = outRegisteredInHKLM;
 		}
@@ -175,7 +175,7 @@ static bool IsProtectedByHash(LPCTSTR subKeyRelativeToHKCU, bool checkForRegistr
 		bool hasProgId = GetRegistryStringValue(key, _T("ProgId"), value);
 		RegCloseKey(key);
 		return checkForRegistration ?
-			hasHashValue && !(hasProgId && value == _T("Applications\\JPEGView.exe")) :
+			hasHashValue && !(hasProgId && value == _T("Applications\\JPEGView-Static.exe")) :
 			hasHashValue;
 	}
 	return false;
@@ -191,9 +191,9 @@ static void RegisterInMRU(LPCTSTR sRegMRUPath) {
 
 	CString mruList;
 	if (!GetRegistryStringValue(key, _T("MRUList"), mruList) || mruList.IsEmpty()) {
-		// No MRU list yet, create new list containing JPEGView.exe
+		// No MRU list yet, create new list containing JPEGView-Static.exe
 		if (SetRegistryStringValue(key, _T("MRUList"), _T("a"))) {
-			SetRegistryStringValue(key, _T("a"), _T("JPEGView.exe"));
+			SetRegistryStringValue(key, _T("a"), _T("JPEGView-Static.exe"));
 		}
 		return;
 	}
@@ -202,12 +202,12 @@ static void RegisterInMRU(LPCTSTR sRegMRUPath) {
 		CString mruEntry = CString(mruList.GetAt(index));
 		CString mruValue;
 		if (GetRegistryStringValue(key, mruEntry, mruValue)) {
-			if (mruValue == _T("JPEGView.exe")) {
+			if (mruValue == _T("JPEGView-Static.exe")) {
 				return; // already in MRU list, do nothing
 			}
 		}
 	}
-	// append another entry to the MRU list with JPEGView.exe
+	// append another entry to the MRU list with JPEGView-Static.exe
 	CString nextMRUEntry = CString(wchar_t(mruList.GetAt(mruList.GetLength() - 1) + 1));
 	// another solution
 	// https://stackoverflow.com/questions/12602526/how-can-i-convert-an-int-to-a-cstring
@@ -215,7 +215,7 @@ static void RegisterInMRU(LPCTSTR sRegMRUPath) {
 	// error C2440: '<function-style-cast>': cannot convert from 'int' to 'ATL::CString'
 	// CString nextMRUEntry; nextMRUEntry.Format(_T("%d"), mruList.GetAt(mruList.GetLength() - 1) + 1);
 	if (nextMRUEntry.GetAt(0) <= _T('z') && SetRegistryStringValue(key, _T("MRUList"), mruList + nextMRUEntry)) {
-		SetRegistryStringValue(key, nextMRUEntry, _T("JPEGView.exe"));
+		SetRegistryStringValue(key, nextMRUEntry, _T("JPEGView-Static.exe"));
 	}
 }
 
@@ -254,7 +254,7 @@ static RegResult RegisterExtension(LPCTSTR sExtension, bool bNewRegistryFormat, 
 				return Reg_ErrorWriteKey;
 			}
 			CString startupCommand;
-			startupCommand.Format(_T("\"%sJPEGView.exe\" \"%%1\""),  CSettingsProvider::This().GetEXEPath());
+			startupCommand.Format(_T("\"%sJPEGView-Static.exe\" \"%%1\""),  CSettingsProvider::This().GetEXEPath());
 			if (!SetRegistryStringValue(key, NULL, startupCommand)) {
 				RegCloseKey(key);
 				return Reg_ErrorWriteKey;
@@ -295,7 +295,7 @@ static RegResult RegisterExtension(LPCTSTR sExtension, bool bNewRegistryFormat, 
 		CString value;
 		bool bOk = GetRegistryStringValue(key, sKeyName, value);
 		if (bOk) {
-			if (Helpers::stristr(value, _T("JPEGView.exe")) == NULL) {
+			if (Helpers::stristr(value, _T("JPEGView-Static.exe")) == NULL) {
 				// another application is set as default viewer, backup this
 				if (!SetRegistryStringValue(key, CString(sKeyName) + _T("_backup"), value)) {
 					return Reg_ErrorWriteKey;
@@ -305,7 +305,7 @@ static RegResult RegisterExtension(LPCTSTR sExtension, bool bNewRegistryFormat, 
 				return Reg_Success;
 			}
 		}
-		bOk = SetRegistryStringValue(key, sKeyName, bNewRegistryFormat ? _T("Applications\\JPEGView.exe") : _T("JPEGView.exe"));
+		bOk = SetRegistryStringValue(key, sKeyName, bNewRegistryFormat ? _T("Applications\\JPEGView-Static.exe") : _T("JPEGView-Static.exe"));
 
 		if (bOk && bNewRegistryFormat) {
 			RegisterInMRU(sRegMRUPathForExtension);
@@ -472,10 +472,10 @@ CFileExtensionsRegistry::CFileExtensionsRegistry() {
 bool CFileExtensionsRegistry::RegisterJPEGView() {
 	if (!m_bIsJPEGViewRegistered) {
 		HKEY key;
-		if (RegCreateKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\Applications\\JPEGView.exe\\shell\\open\\command"), 0,
+		if (RegCreateKeyEx(HKEY_CURRENT_USER, _T("Software\\Classes\\Applications\\JPEGView-Static.exe\\shell\\open\\command"), 0,
 			NULL, 0, KEY_WRITE, NULL, &key, NULL) == ERROR_SUCCESS) {
 			CString value;
-			value.Format(_T("\"%sJPEGView.exe\" \"%%1\""),  CSettingsProvider::This().GetEXEPath());
+			value.Format(_T("\"%sJPEGView-Static.exe\" \"%%1\""),  CSettingsProvider::This().GetEXEPath());
 
 			bool bOk = SetRegistryStringValue(key, NULL, value);
 			RegCloseKey(key);
@@ -542,20 +542,20 @@ CFileExtensionsRegistrationWindows8::CFileExtensionsRegistrationWindows8() {
 bool CFileExtensionsRegistrationWindows8::RegisterJPEGView() {
 	// ProgId
 	CString startupCommand;
-	startupCommand.Format(_T("\"%sJPEGView.exe\" \"%%1\""), CSettingsProvider::This().GetEXEPath());
+	startupCommand.Format(_T("\"%sJPEGView-Static.exe\" \"%%1\""), CSettingsProvider::This().GetEXEPath());
 	if (!WriteStringValue(_T("Software\\Classes\\JPEGViewImageFile\\shell\\open\\command"), NULL, startupCommand)) {
 		return false;
 	}
 
 	// Set as RegisteredApplications and declare capabilities
-	if (!WriteStringValue(_T("Software\\RegisteredApplications"), _T("JPEGView"), _T("Software\\JPEGView\\Capabilities"))) {
+	if (!WriteStringValue(_T("Software\\RegisteredApplications"), _T("JPEGView-Static"), _T("Software\\JPEGView-Static\\Capabilities"))) {
 		return false;
 	}
-	if (!WriteStringValue(_T("Software\\JPEGView\\Capabilities"), _T("ApplicationDescription"), 
+	if (!WriteStringValue(_T("Software\\JPEGView-Static\\Capabilities"), _T("ApplicationDescription"), 
 		CNLS::GetString(_T("JPEGView is a lean, fast and highly configurable viewer/editor for JPEG, BMP, PNG, WEBP, TGA, GIF and TIFF images with a minimal GUI.")))) {
 		return false;
 	}
-	if (!WriteStringValue(_T("Software\\JPEGView\\Capabilities"), _T("ApplicationName"), _T("JPEGView"))) {
+	if (!WriteStringValue(_T("Software\\JPEGView-Static\\Capabilities"), _T("ApplicationName"), _T("JPEGView-Static"))) {
 		return false;
 	}
 	
@@ -568,7 +568,7 @@ bool CFileExtensionsRegistrationWindows8::RegisterJPEGView() {
 		if (buffer[i] == _T(';') || buffer[i] == 0) {
 			fileEnding++; // strip the *
 			buffer[i] = 0;
-			if (!WriteStringValue(_T("Software\\JPEGView\\Capabilities\\FileAssociations"), fileEnding, _T("JPEGViewImageFile"))) {
+			if (!WriteStringValue(_T("Software\\JPEGView-Static\\Capabilities\\FileAssociations"), fileEnding, _T("JPEGViewImageFile"))) {
 				return false;
 			}
 			fileEnding = &(buffer[i + 1]); 

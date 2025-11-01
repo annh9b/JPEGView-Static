@@ -40,7 +40,7 @@ void CHelpDisplayCtl::GenerateHelpDisplay() {
 		_stprintf_s(buff, 256, _T("%s (%d x %d   %.1f MPixel)"), sTitle, pCurrentImage->OrigWidth(), pCurrentImage->OrigHeight(), fMPix);
 		m_pHelpDisplay->AddLine(CNLS::GetString(_T("Current image")), buff);
 	}
-	m_pHelpDisplay->AddLine(_T("Esc"), CNLS::GetString(_T("Close help text display / Close JPEGView")));
+	m_pHelpDisplay->AddLine(_T("Esc"), CNLS::GetString(_T("Close help text display / Close JPEGView-Static")));
 	m_pHelpDisplay->AddLine(_T("F1"), CNLS::GetString(_T("Show/hide this help text")));
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_SHOW_FILEINFO), m_pMainDlg->GetEXIFDisplayCtl()->IsActive(), CNLS::GetString(_T("Show/hide picture information (EXIF data)")));
 	m_pHelpDisplay->AddLineInfo(_KeyDesc(IDM_SHOW_FILENAME), m_pMainDlg->IsShowFileName(), CNLS::GetString(_T("Show/hide file name")));

@@ -22,7 +22,7 @@ static BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam) {
 	TCHAR buff[BUF_LEN + 1];
 	buff[BUF_LEN] = 0;
 	::GetWindowText(hwnd, (LPTSTR)&buff, BUF_LEN);
-	if (_tcsstr(buff, _T(" - JPEGView")) != NULL) {
+	if (_tcsstr(buff, _T(" - JPEGView-Static")) != NULL) {
 		_HWNDOtherInstance = hwnd;
 		return FALSE;
 	}
@@ -135,7 +135,7 @@ static CRITICAL_SECTION s_lock;
 
 static BOOL GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {
-	WCHAR* szAppName = L"JPEGView";
+	WCHAR* szAppName = L"JPEGView-Static";
 	DWORD dwBufferSize = MAX_PATH;
 	HANDLE hDumpFile;
 	SYSTEMTIME stLocalTime;

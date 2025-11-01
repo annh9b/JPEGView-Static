@@ -37,7 +37,7 @@ LRESULT CHelpDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	panelRect.InflateRect(inflateX, inflateY, inflateX + scrollbarWidth, inflateY);
 	MoveWindow(CRect(0, 0, min(monitorRect.Width(), panelRect.Width()), min(monitorRect.Height(), panelRect.Height())));
 
-	this->SetWindowText(CNLS::GetString(_T("JPEGView Help")));
+	this->SetWindowText(CNLS::GetString(_T("JPEGView-Static Help")));
 	CenterWindow();
 
 	return TRUE;
