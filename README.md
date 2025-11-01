@@ -20,3 +20,5 @@ but gives the outstanding support of all modern 64-bit Windows systems starting 
 **JPEGView-Static supports nearly ALL image file formats, including too old and too new ones, so it is called the Absolute Image Viewer for Windows.**
 
 Create an issue to support a format that is still not supported - that is a quest!
+
+**ICC color profiles are supported, so your images will be shown in accurate colors.**
