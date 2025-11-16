@@ -2,7 +2,7 @@
 
 ![JPEGView-Static icon](favicon_large.png?raw=true)
 
-> Updated Nov 01 2025. Version 1.4.0.0 has been released.
+> Updated Nov 16 2025. Version 1.4.0.0 has been released.
 
 ![JPEGView-Static Absolute Image Viewer for Windows thumbnail for social media](repository-open-graph-template-out.png?raw=true)
 
@@ -21,6 +21,23 @@ but gives the outstanding support of all modern 64-bit Windows systems starting 
 
 **JPEGView-Static supports nearly ALL image file formats, including too old and too new ones, so it is called the Absolute Image Viewer for Windows.**
 
-Create an issue to support a format that is still not supported - that is a quest!
+Popular supported image formats: JPEG, GIF, BMP, PNG, TIFF, PSD, WEBP, JXL, HEIF/HEIC, AVIF, TGA, WDP, HDP, JXR,
+DNG, CRW, CR2, CR3, NEF, NRW, ARW, SR2, ORF, RW2, RAF, X3F, PEF, MRW, KDC, DCR.
 
-**ICC color profiles are supported, so your images will be shown in accurate colors.**
+Almost full [list](https://www.libraw.org/supported-cameras). Of course iPhone, Canon, Nikon, Fuji, Sigma, Panasonic, Pentax are supported!
+
+Many additional formats are supported by Windows Imaging Component (WIC).
+
+Create an issue to support a format that is still not supported - that is a quest to find such one!
+
+**ICC color profiles are supported as well, so your images will be shown in accurate colors.**
+
+## Built-in Basic Image Editor
+
+Basic on-the-fly image processing is provided - allowing adjusting typical parameters:
+* sharpness
+* color balance
+* rotation
+* perspective
+* contrast
+* local under-exposure/over-exposure.
